@@ -1,27 +1,26 @@
+import { Route, Routes } from 'react-router-dom';
 
-import { Link, Route, Routes } from 'react-router-dom'
-import './App.css'
-import MoviesPage from './pages/MoviesPage/MoviesPage'
-import HomePage from './pages/HomePage/Home'
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+
+import HomePage from './pages/HomePage/Home';
+import MoviesPage from './pages/MoviesPage/MoviesPage';
+import CategoriesPage from './pages/CategoriesPage/CategoriesPage';
+
+import './App.css';
 
 function App() {
-
-
   return (
     <>
-      <div>try this routing</div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/movies">Movies</Link></li>
-      </ul>
-
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
+        <Route path="/categories" element={<CategoriesPage />} />
       </Routes>
+      <Footer />
     </>
-
-  )
+  );
 }
 
-export default App
+export default App;
