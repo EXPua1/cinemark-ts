@@ -1,0 +1,22 @@
+.list {
+  display: flex;
+  gap: 24px;
+}
+
+.list_item {
+  width: calc(25% - 18px);
+}
+
+.list_content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.title{
+  margin-bottom: 24px;
+}

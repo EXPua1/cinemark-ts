@@ -1,0 +1,31 @@
+.hero {
+  padding: 70px 0;
+  margin-top: 70px;
+  position: relative;
+  overflow: hidden;
+  background-color: #28282d;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url('../../assets/images/hero.webp') no-repeat center / cover;
+  opacity: 0.1;
+}
+
+.container {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-inline: calc(var(--bs-gutter-x) * 0.5);
+  margin-inline: auto;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
