@@ -1,7 +1,7 @@
 // Header.js
 import { Link } from 'react-router-dom';
 
-import Container from '../ontainer/Container';
+import Container from '../Сontainer/Container';
 import SignBtn from '../SignBtn/SignBtn';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 

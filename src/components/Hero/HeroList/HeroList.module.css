@@ -20,3 +20,6 @@
 .title{
   margin-bottom: 24px;
 }
+.container{
+    max-width: 1200px;
+}
