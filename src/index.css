@@ -11,16 +11,15 @@
 html,
 body {
   height: 100%;
-  font-family: system-ui, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   line-height: 1.5;
-  background-color: #fff;
-  color: #333;
-  margin: 0;
-  padding: 0;
+  background-color: #2b2b31;
+  color: #fff;
 }
 
 /* Списки */
-ul, ol {
+ul,
+ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -54,9 +53,9 @@ button {
   line-height: inherit;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
+input[type='text'],
+input[type='password'],
+input[type='email'],
 textarea {
   border: none;
   outline: none;
@@ -92,7 +91,17 @@ form {
 }
 
 /* Картки, колонки */
-article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section,
+summary {
   display: block;
 }
 
@@ -100,5 +109,3 @@ article, aside, details, figcaption, figure, footer, header, main, nav, section,
 iframe {
   border: none;
 }
-
-/* Псевдокласи

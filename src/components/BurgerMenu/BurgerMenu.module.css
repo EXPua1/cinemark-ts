@@ -1,0 +1,39 @@
+.burger_menu {
+  width: 24px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.bar {
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Анімація хрестика */
+.topBar {
+  transform: translateY(9px) rotate(45deg);
+  transform-origin: center;
+}
+
+.middleBar {
+  opacity: 0;
+}
+
+.bottomBar {
+  transform: translateY(-9px) rotate(-45deg);
+  transform-origin: center;
+}
+
+@media (min-width: 1440px) {
+  .burger_menu {
+    display: none;
+  }
+}
