@@ -1,0 +1,43 @@
+.sign_in {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  background: linear-gradient(to right, #fad084 5%, #ffa500 95%);
+  /* position: relative; */
+}
+
+.sign_in svg {
+  width: 28px;
+  height: 28px;
+}
+
+.sign_in span {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sign_in {
+    height: 46px;
+    width: 108px;
+  }
+
+  .sign_in svg {
+    display: none;
+  }
+
+  .sign_in span {
+    display: block;
+    color: #fff;
+    text-transform: uppercase;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sign_in {
+    width: 120px;
+  }
+}
