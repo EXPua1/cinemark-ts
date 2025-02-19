@@ -47,7 +47,8 @@ const Header = () => {
             </ul>
           </nav>
           <div className={css.header_actions}>
-            {isLargeScreen && <SearchForm />} <p className={css.lang}> UA</p>
+            {isLargeScreen && <SearchForm />}
+            <p className={css.lang}> UA</p>
             <SignBtn />
           </div>
           <BurgerMenu />
