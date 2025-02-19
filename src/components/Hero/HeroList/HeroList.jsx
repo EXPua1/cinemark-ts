@@ -9,20 +9,16 @@ import { genres } from "../../constants/genres";
 
 const defImg = "https://via.placeholder.com/200";
 
-
-
-
 const HeroList = ({ films }) => {
-    console.log(films)
+    console.log(films);
     const swiperRef = useRef(null);
 
     const getGenres = (genreIds) => {
         return genreIds
-            .map((id) => genres.find((genre) => genre.id === id))  // Находим жанры по ID
-            .map((genre) => genre?.name)  // Извлекаем имя жанра
-            .join(', ');  // Объединяем жанры в строку
+            .map((id) => genres.find((genre) => genre.id === id)?.name) // Извлекаем имя жанра
+            .filter(Boolean) // Исключаем undefined
+            .join(', '); // Объединяем в строку
     };
-
 
     if (!Array.isArray(films) || films.length === 0) {
         return <p>No films available.</p>;
@@ -30,35 +26,38 @@ const HeroList = ({ films }) => {
 
     return (
         <div className={css.container}>
-
             <div className={css.btn_swipe}>
                 <h2 className={css.title}>Films list</h2>
                 <div className={css.customNavigation}>
                     <button
                         className={css.prevButton}
-                        onClick={() => swiperRef.current.swiper.slidePrev()}
+                        onClick={() => swiperRef.current?.slidePrev()}
                     >
-                        &#8592; {/* Стрелка влево */}
+                        &#8592;
                     </button>
                     <button
                         className={css.nextButton}
-                        onClick={() => swiperRef.current.swiper.slideNext()}
+                        onClick={() => swiperRef.current?.slideNext()}
                     >
-                        &#8594; {/* Стрелка вправо */}
+                        &#8594;
                     </button>
                 </div>
             </div>
 
             <Swiper
-                ref={swiperRef}
+                className={css.swiper_slide}
                 modules={[Navigation, Pagination]}
                 spaceBetween={10}
                 slidesPerView={4}
-                pagination={{ clickable: true }}
+                pagination={{
+                    clickable: true,
+                    type: 'bullets',
+                }}
                 loop={true}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
             >
                 {films.map((film) => (
-                    <SwiperSlide key={film.id}>
+                    <SwiperSlide className={css.swiperSlide} key={film.id}>
                         <div className={css.slide}>
                             <img
                                 src={film.poster_path ? `https://image.tmdb.org/t/p/w500${film.poster_path}` : defImg}
@@ -67,12 +66,10 @@ const HeroList = ({ films }) => {
                             />
                             <div className={css.info}>
                                 <p>{film.title}</p>
-
-                                <span className={css.rating}>{film.vote_average}</span>
+                                <span className={css.film_genres}>{getGenres(film.genre_ids)}</span>
                                 <span>{film.rating}</span>
-                                <span>{getGenres(film.genre_ids)}</span>
+                                <span className={css.rating}>{film.vote_average.toFixed(1)}</span>
                             </div>
-
                         </div>
                     </SwiperSlide>
                 ))}

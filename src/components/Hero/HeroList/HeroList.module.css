@@ -17,7 +17,7 @@
 .slide {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  
   justify-content: center;
   width: 100%;
   text-align: center;
@@ -40,7 +40,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 
 .prevButton,
@@ -50,7 +49,7 @@
   align-items: center;
 
   color: white;
-  border: 1px solid rgba(255, 85, 165, 0.5);
+  border: 1px solid #fad084;
   font-size: 24px;
   padding: 10px;
   margin: 0 10px;
@@ -60,37 +59,45 @@
   height: 40px;
 }
 
-.customNavigation{
-    display: flex;
-    
-    justify-content: center;
+.customNavigation {
+  display: flex;
+
+  justify-content: center;
 }
-.rating{
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
-    position: relative;
-    display: inline-flex
-;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 5px;
-    padding-left: 20px;
+.rating {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+  padding-left: 20px;
 }
-.rating::before{
-   content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 16px;
-    background: url('../../../assets//star.svg') no-repeat center;
-    background-size: 100% auto;
-    
+.rating::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background: url('../../../assets//star.svg') no-repeat center;
+  background-size: 100% auto;
+   filter: invert(61%) sepia(99%) saturate(547%) hue-rotate(1deg) brightness(102%) contrast(101%);
 }
-.info{
-    text-align: start;
-    display: flex;
-    flex-direction: column;
+.info {
+  text-align: start;
+  display: flex;
+  flex-direction: column;
 }
+
+.swiper_slide{
+    padding-bottom: 55px;
+}
+.film_genres{
+    color:#ffa500;
+}
+
+
