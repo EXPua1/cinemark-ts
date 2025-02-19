@@ -1,13 +1,28 @@
-// Header.js
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Container from '../Сontainer/Container';
 import SignBtn from '../SignBtn/SignBtn';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
+import SearchForm from '../SearchForm/SearchForm';
 
 import css from './Header.module.css';
 
 const Header = () => {
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 767);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <header className={css.header}>
       <Container>
@@ -26,11 +41,13 @@ const Header = () => {
               <li>
                 <Link to="/categories">Categories</Link>
               </li>
+              <li>
+                <Link to="/test">test</Link>
+              </li>
             </ul>
           </nav>
           <div className={css.header_actions}>
-            <p className={css.form_search}>Form search</p>
-            <p className={css.lang}> UA</p>
+            {isLargeScreen && <SearchForm />} <p className={css.lang}> UA</p>
             <SignBtn />
           </div>
           <BurgerMenu />

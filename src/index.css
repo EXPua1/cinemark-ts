@@ -59,20 +59,22 @@ input[type='email'],
 textarea {
   border: none;
   outline: none;
+  appearance: none;
+  box-shadow: none;
 }
 
 /* Таблиці */
-table {
+/* table {
   border-collapse: collapse;
   width: 100%;
   border-spacing: 0;
-}
+} */
 
-th,
+/* th,
 td {
   text-align: left;
   padding: 8px;
-}
+} */
 
 a {
   text-decoration: none;
@@ -86,12 +88,12 @@ img {
 }
 
 /* Форма */
-form {
+/* form {
   display: block;
-}
+} */
 
 /* Картки, колонки */
-article,
+/* article,
 aside,
 details,
 figcaption,
@@ -103,7 +105,7 @@ nav,
 section,
 summary {
   display: block;
-}
+} */
 
 /* Фіксація скидання для iframe */
 iframe {

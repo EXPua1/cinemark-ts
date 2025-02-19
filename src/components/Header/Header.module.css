@@ -33,14 +33,7 @@
   align-items: center;
 }
 
-.form_search {
-  display: none;
-}
-
 @media (min-width: 768px) {
-  .form_search {
-    display: flex;
-  }
 }
 
 @media (min-width: 1440px) {
