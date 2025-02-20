@@ -1,0 +1,10 @@
+.item:hover,
+.item:focus {
+  color: var(--accent-color);
+}
+
+.detailButton {
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: var(--accent-light-color);
+}
