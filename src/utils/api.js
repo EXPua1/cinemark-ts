@@ -16,7 +16,7 @@ export const getTrendingMovies = async (timeWindow = 'day') => {
 };
 
 export const searchMovies = async query => {
-  const { data } = await axios.get('/search/movie', {
+  const { data } = await axios.get('/search/multi', {
     params: {
       query,
     },

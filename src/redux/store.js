@@ -12,7 +12,7 @@ import {
 
 import storage from 'redux-persist/lib/storage';
 import { auth } from './auth/slice';
-
+import genresSlice from './genres/genresSlice';
 
 const persistConfig = {
   key: 'userToken', // ключ для збереження в сховищі
@@ -20,12 +20,10 @@ const persistConfig = {
   whitelist: ['token', 'user'], // вказуємо, що зберігати
 };
 
-
 export const store = configureStore({
-    reducer: {
-      user: persistReducer(persistConfig, auth)
-   
-   
+  reducer: {
+    user: persistReducer(persistConfig, auth),
+    genre: genresSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

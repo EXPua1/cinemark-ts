@@ -1,5 +1,9 @@
 
+
+import GenresList from "../../components/GenresList/GenresList";
 import Hero from "../../components/Hero/Hero";
+import Section from "../../components/Section/Section";
+import Container from "../../components/Сontainer/Container";
 
 
 const HomePage = () => {
@@ -25,10 +29,16 @@ const HomePage = () => {
 
   return (
     <>
-     
-       <Hero />
-        {/* <HeroList films={films} /> */}
-      
+
+      <Hero />
+      {/* <HeroList films={films} /> */}
+      <Section>
+        <Container>
+          <GenresList />
+        </Container>
+
+      </Section>
+
 
     </>
   )
