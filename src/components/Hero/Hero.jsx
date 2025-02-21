@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import css from './Hero.module.css'
 import HeroList from './HeroList/HeroList'
-import { getTrendingMovies } from '../../utils/api';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMoviesDay } from '../../redux/movies/moviesSlice';
+
 
 const Hero = () => {
+    const dispatch = useDispatch()
+    const { films, status, error } = useSelector((state) => state.movies);
 
-    const [films, setFilms] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getTrendingMovies();
-                setFilms(data);
+        if (status === "idle") {
+            dispatch(fetchMoviesDay());
+        }
+    }, [status, dispatch]);
 
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
+    if (status === "loading") return <p>Loading...</p>;
+    if (status === "failed") return <p>Error: {error}</p>;
 
     return (
         <section className={css.hero}>
