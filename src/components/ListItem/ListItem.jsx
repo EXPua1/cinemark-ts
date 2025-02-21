@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import MovieModal from '../MovieModal/MovieModal';
 
 import css from './ListItem.module.css';
 
-const ListItem = ({ item, actions, className = '' }) => {
+const ListItem = ({ item, className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
   const { media_type } = item;
 
   return (
@@ -55,12 +57,16 @@ const ListItem = ({ item, actions, className = '' }) => {
             </>
           )}
         </div>
-        {actions && <div className={css.actions}>{actions}</div>}
+        {/* {actions && <div className={css.actions}>{actions}</div>} */}
       </li>
 
       {isOpen && (media_type === 'movie' || media_type === 'tv') && (
         <MovieModal item={item} onClose={() => setIsOpen(false)}>
-          <Link to={`/movies/${item.id}`} className={css.detailButton}>
+          <Link
+            to={`/details/${item.id}`}
+            state={{ from: location }}
+            className={css.detailButton}
+          >
             Details
           </Link>
         </MovieModal>

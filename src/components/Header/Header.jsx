@@ -41,9 +41,9 @@ const Header = () => {
               <li>
                 <Link to="/categories">Categories</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/test">test</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
           <div className={css.header_actions}>

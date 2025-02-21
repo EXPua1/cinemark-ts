@@ -1,32 +1,29 @@
-import { Outlet, useParams, useLocation, NavLink } from 'react-router-dom';
-import clsx from 'clsx';
+import { useParams, useLocation } from 'react-router-dom';
+// import clsx from 'clsx';
 
 import Section from '../../components/Section/Section';
 import Container from '../../components/Сontainer/Container';
 import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
-import MovieDetails from '../../components/MovieDetails/MovieDetails';
+import Details from '../../components/Details/Details';
 
-// import css from './MovieDetailsPage.module.css';
-
-const MovieDetailsPage = () => {
-  const { movieId } = useParams();
+const DetailsPage = () => {
+  const { id } = useParams();
+  // console.log(id);
 
   const location = useLocation();
-  const prevLocation = location.state.from;
+  const prevLocation = location.state?.from || '/';
+  // console.log(location);
 
-  const buildCssClasses = ({ isActive }) =>
-    clsx(css.link, isActive && css.active);
+  // const buildCssClasses = ({ isActive }) =>
+  //   clsx(css.link, isActive && css.active);
 
   return (
     <>
       <Section>
         <Container>
-          <GoBackBtn
-          //   state={{ from: prevLocation }}
-          />
-          <MovieDetails
-          //   state={{ from: prevLocation }}
-          />
+          <GoBackBtn state={{ from: prevLocation }} />
+          {/* <Details state={{ from: prevLocation }} /> */}
+          <Details id={id} />
         </Container>
       </Section>
 
@@ -37,7 +34,7 @@ const MovieDetailsPage = () => {
           >
             Discover
           </h3>
-          <NavLink
+          {/* <NavLink
             to={`/movies/${movieId}/comments`}
             state={{ from: prevLocation }}
             className={buildCssClasses}
@@ -57,16 +54,16 @@ const MovieDetailsPage = () => {
             className={buildCssClasses}
           >
             Photos
-          </NavLink>
+          </NavLink>*/}
         </Container>
       </Section>
-      <Section>
+      {/* <Section>
         <Container>
           <Outlet />
         </Container>
-      </Section>
+      </Section> */}
     </>
   );
 };
 
-export default MovieDetailsPage;
+export default DetailsPage;

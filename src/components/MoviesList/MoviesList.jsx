@@ -3,7 +3,7 @@ import ListItem from '../ListItem/ListItem';
 import css from './MoviesList.module.css';
 
 const MoviesList = ({ items, variant = 'list' }) => {
-  console.log({ items });
+  // console.log({ items });
 
   return (
     <ul
