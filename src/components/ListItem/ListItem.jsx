@@ -1,39 +1,49 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import MovieModal from '../MovieModal/MovieModal';
 
 import css from './ListItem.module.css';
 
-const ListItem = ({ item, actions, className = '' }) => {
+const ListItem = ({ item, className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { media_type } = item;
+  const location = useLocation();
+
+  const { media_type, id, poster_path, title, name } = item;
+  const isMovieOrTV = media_type === 'movie' || media_type === 'tv';
 
   return (
     <>
-      <li
-        className={`${css.item} ${className}`}
-        onClick={() => setIsOpen(true)}
-      >
+      <li className={`${css.item} ${className}`}>
         <div className={css.content}>
-          {(media_type === 'movie' || media_type === 'tv') && (
+          {isMovieOrTV && (
             <>
-              {item.poster_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                  alt={item.title || item.name}
-                />
-              ) : (
-                <div className={css.placeholder}>No Image</div>
-              )}
-              <h3>{item.title || item.name}</h3>
+              <Link
+                to={`/${media_type}/${id}`}
+                state={{ from: location }}
+                className={css.videoLink}
+              >
+                {item.poster_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    alt={title || name}
+                  />
+                ) : (
+                  <div className={css.placeholder}>No Image</div>
+                )}
+              </Link>
+              <h3 onClick={() => setIsOpen(true)}>{title || name}</h3>
             </>
           )}
 
           {/* Персони */}
           {media_type === 'person' && (
             <>
-              <Link to={`/person/${item.id}`} className={css.personLink}>
+              <Link
+                to={`/person/${id}`}
+                state={{ from: location }}
+                className={css.personLink}
+              >
                 {/* {item.profile_path ? (
                   <img
                     src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
@@ -42,7 +52,7 @@ const ListItem = ({ item, actions, className = '' }) => {
                 ) : (
                   <div className={css.placeholder}>No Image</div>
                 )} */}
-                <h3>{item.name}</h3>
+                <h3>{name}</h3>
                 {/* {item.known_for?.length > 0 && (
                   <p>
                     Known for:{' '}
@@ -55,12 +65,16 @@ const ListItem = ({ item, actions, className = '' }) => {
             </>
           )}
         </div>
-        {actions && <div className={css.actions}>{actions}</div>}
+        {/* {actions && <div className={css.actions}>{actions}</div>} */}
       </li>
 
-      {isOpen && (media_type === 'movie' || media_type === 'tv') && (
+      {isOpen && isMovieOrTV && (
         <MovieModal item={item} onClose={() => setIsOpen(false)}>
-          <Link to={`/movies/${item.id}`} className={css.detailButton}>
+          <Link
+            to={`/${media_type}/${id}`}
+            state={{ from: location }}
+            className={css.detailButton}
+          >
             Details
           </Link>
         </MovieModal>

@@ -39,11 +39,11 @@ const Header = () => {
                 <Link to="/movies">Movies</Link>
               </li>
               <li>
-                <Link to="/categories">Categories</Link>
+                <Link to="/tv">TV</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/test">test</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
           <div className={css.header_actions}>

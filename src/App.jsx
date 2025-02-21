@@ -5,8 +5,9 @@ import Footer from './components/Footer/Footer';
 
 import HomePage from './pages/HomePage/Home';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
-import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
-import CategoriesPage from './pages/CategoriesPage/CategoriesPage';
+import TvPage from './pages/TvPage/TvPage';
+import DetailsPage from './pages/DetailsPage/DetailsPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 import './App.css';
 
@@ -17,11 +18,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+        <Route path="/tv" element={<TvPage />} />
+        <Route path="/:type/:id" element={<DetailsPage />}>
           {/* <Route path="comments" element={<MovieComments />} /> */}
           {/* <Route path="review" element={<MovieReviews />} /> */}
         </Route>
-        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
       <Footer />
     </>

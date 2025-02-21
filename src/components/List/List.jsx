@@ -1,9 +1,9 @@
 import ListItem from '../ListItem/ListItem';
 
-import css from './MoviesList.module.css';
+import css from './List.module.css';
 
-const MoviesList = ({ items, variant = 'list' }) => {
-  console.log({ items });
+const List = ({ items, variant = 'list' }) => {
+  // console.log({ items });
 
   return (
     <ul
@@ -16,4 +16,4 @@ const MoviesList = ({ items, variant = 'list' }) => {
   );
 };
 
-export default MoviesList;
+export default List;
