@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { searchMovies } from '../../utils/api';
+import { searchMulti } from '../../utils/api';
 import Section from '../../components/Section/Section';
 import Container from '../../components/Сontainer/Container';
-import MoviesList from '../../components/MoviesList/MoviesList';
+import List from '../../components/List/List';
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
@@ -19,7 +19,7 @@ const SearchPage = () => {
 
     const getItems = async () => {
       try {
-        setItems(await searchMovies(query));
+        setItems(await searchMulti(query));
       } catch (error) {
         console.error('Error fetching items:', error);
       }
@@ -40,21 +40,21 @@ const SearchPage = () => {
               {moviesList.length > 0 && (
                 <Section>
                   <h2>Movies</h2>
-                  <MoviesList items={moviesList} variant="grid" />
+                  <List items={moviesList} variant="grid" />
                 </Section>
               )}
 
               {tvShowsList.length > 0 && (
                 <Section>
                   <h2>TV Shows</h2>
-                  <MoviesList items={tvShowsList} variant="grid" />
+                  <List items={tvShowsList} variant="grid" />
                 </Section>
               )}
 
               {peopleList.length > 0 && (
                 <Section>
                   <h2>People</h2>
-                  <MoviesList items={peopleList} variant="list" />
+                  <List items={peopleList} variant="list" />
                 </Section>
               )}
             </>

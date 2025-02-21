@@ -38,7 +38,6 @@ const Header = () => {
               <li>
                 <Link to="/movies">Movies</Link>
               </li>
-
               <li>
                 <Link to="/tv">TV</Link>
               </li>

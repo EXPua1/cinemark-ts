@@ -1,7 +1,7 @@
 import css from './MovieModal.module.css';
 
 const MovieModal = ({ item, onClose, children }) => {
-  console.log({ item }, children);
+  // console.log({ item }, children);
 
   return (
     <div className={css.overlay} onClick={onClose}>

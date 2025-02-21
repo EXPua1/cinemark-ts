@@ -7,8 +7,8 @@ import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
 import Details from '../../components/Details/Details';
 
 const DetailsPage = () => {
-  const { id } = useParams();
-  // console.log(id);
+  const { type, id } = useParams();
+  // console.log({ type });
 
   const location = useLocation();
   const prevLocation = location.state?.from || '/';
@@ -23,7 +23,7 @@ const DetailsPage = () => {
         <Container>
           <GoBackBtn state={{ from: prevLocation }} />
           {/* <Details state={{ from: prevLocation }} /> */}
-          <Details id={id} />
+          <Details />
         </Container>
       </Section>
 

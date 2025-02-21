@@ -15,7 +15,7 @@ export const getTrendingMovies = async (timeWindow = 'day') => {
   return data.results;
 };
 
-export const searchMovies = async query => {
+export const searchMulti = async query => {
   const { data } = await axios.get('/search/multi', {
     params: {
       query,
@@ -25,7 +25,7 @@ export const searchMovies = async query => {
 };
 
 // Отримати деталі фільму за ID
-export const getMovieDetails = async movieId => {
-  const { data } = await axios.get(`/movie/${movieId}`);
+export const getDetails = async (type, id) => {
+  const { data } = await axios.get(`/${type}/${id}`);
   return data;
 };

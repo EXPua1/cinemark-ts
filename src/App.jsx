@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
         <Route path="/tv" element={<TvPage />} />
-        <Route path="/details/:id" element={<DetailsPage />}>
+        <Route path="/:type/:id" element={<DetailsPage />}>
           {/* <Route path="comments" element={<MovieComments />} /> */}
           {/* <Route path="review" element={<MovieReviews />} /> */}
         </Route>
