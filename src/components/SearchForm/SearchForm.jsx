@@ -12,7 +12,7 @@ const SearchForm = () => {
     const form = e.target;
     const query = form.elements.search.value.trim();
 
-    query ? navigate(`/movies/?search=${query}`) : console.log('enter search!');
+    query ? navigate(`/search/?query=${query}`) : console.log('enter search!');
 
     form.reset();
   };

@@ -38,8 +38,9 @@ const Header = () => {
               <li>
                 <Link to="/movies">Movies</Link>
               </li>
+
               <li>
-                <Link to="/categories">Categories</Link>
+                <Link to="/tv">TV</Link>
               </li>
               {/* <li>
                 <Link to="/test">test</Link>
