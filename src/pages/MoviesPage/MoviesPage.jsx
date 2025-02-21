@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { searchMovies } from '../../utils/api';
+import Section from '../../components/Section/Section';
+import Container from '../../components/Сontainer/Container';
+import MoviesList from '../../components/MoviesList/MoviesList';
 
 const MoviePages = () => {
   const [movies, setMovies] = useState([]);
@@ -24,25 +27,43 @@ const MoviePages = () => {
     getMovies();
   }, [query]);
 
+  const moviesList = movies.filter(item => item.media_type === 'movie');
+  const tvShowsList = movies.filter(item => item.media_type === 'tv');
+  const peopleList = movies.filter(item => item.media_type === 'person');
+
   return (
-    <div>
-      <h2 aria-hidden="true">Search Results</h2>
-      <div>
-        {movies.length > 0
-          ? movies.map(movie => (
-              <Link key={movie.id} to={`/movie/${movie.id}`}>
-                <div>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                  <p>{movie.title}</p>
-                </div>
-              </Link>
-            ))
-          : query && <p>No results found.</p>}
-      </div>
-    </div>
+    <Container>
+      <>
+        <div>
+          {movies.length > 0 ? (
+            <>
+              {moviesList.length > 0 && (
+                <Section>
+                  <h2>Movies</h2>
+                  <MoviesList items={moviesList} variant="grid" />
+                </Section>
+              )}
+
+              {tvShowsList.length > 0 && (
+                <Section>
+                  <h2>TV Shows</h2>
+                  <MoviesList items={tvShowsList} variant="grid" />
+                </Section>
+              )}
+
+              {peopleList.length > 0 && (
+                <Section>
+                  <h2>People</h2>
+                  <MoviesList items={peopleList} variant="list" />
+                </Section>
+              )}
+            </>
+          ) : (
+            query && <p>No results found.</p>
+          )}
+        </div>
+      </>
+    </Container>
   );
 };
 
