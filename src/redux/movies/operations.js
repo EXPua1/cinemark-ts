@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const getTrendingMovies = async (timeWindow = 'day') => {
   const { data } = await axios.get(`/trending/movie/${timeWindow}`);
@@ -8,7 +8,6 @@ export const getTrendingShows = async (timeWindow = 'day') => {
   const { data } = await axios.get(`/trending/tv/${timeWindow}`);
   return data.results;
 };
-
 
 const getCurrentYearMonth = () => {
   const date = new Date();
@@ -24,7 +23,6 @@ export const getTopMoviesByMonth = async () => {
 
   const { data } = await axios.get('/discover/movie', {
     params: {
-      
       sort_by: 'vote_average.desc',
       'primary_release_date.gte': startDate,
       'primary_release_date.lte': endDate,
@@ -39,7 +37,6 @@ export const getTopMoviesByYear = async () => {
 
   const { data } = await axios.get('/discover/movie', {
     params: {
-     
       sort_by: 'vote_average.desc',
       primary_release_year: year,
     },
@@ -48,8 +45,12 @@ export const getTopMoviesByYear = async () => {
   return data.results;
 };
 
+export const searchVideo = async id => {
+  const { data } = await axios.get(`/movie/${id}/videos`);
+  return data.results;
+};
 
-export const searchVideo = async (id) => {
-    const { data } = await axios.get(`/movie/${id}/videos`);
-    return data.results
-}
+export const searchTvVideo = async (id, season = 1) => {
+  const { data } = await axios.get(`/tv/${id}/season/${season}/videos`);
+  return data.results;
+};

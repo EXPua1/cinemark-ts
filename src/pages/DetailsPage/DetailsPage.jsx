@@ -6,14 +6,16 @@ import Container from '../../components/Сontainer/Container';
 import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
 import Details from '../../components/Details/Details';
 import { useEffect } from 'react';
-import { fetchMovieTrailer } from '../../redux/movies/moviesSlice';
+import { fetchMovieTrailer, fetchTvTrailer } from '../../redux/movies/moviesSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTrailers } from '../../redux/movies/selectors';
+import { selectTrailers, selectTvTrailers } from '../../redux/movies/selectors';
 import Video from '../../components/Video/Video';
 
 const DetailsPage = () => {
   const dispatch = useDispatch();
   const trailers = useSelector(selectTrailers);
+  const tvTrailers = useSelector(selectTvTrailers);
+  const tvVideoKey = tvTrailers?.find(t => t.site === "YouTube")?.key || '';
   const videoKey = trailers?.find(t => t.site === "YouTube" && t.type === "Trailer")?.key || '';
   const { type, id } = useParams();
   // console.log({ type });
@@ -25,9 +27,16 @@ const DetailsPage = () => {
   // const buildCssClasses = ({ isActive }) =>
   //   clsx(css.link, isActive && css.active);
   useEffect(() => {
-    dispatch(fetchMovieTrailer(id))
+    console.log(type, id);
 
-  }, []);
+    if (type === 'movie') {
+      dispatch(fetchMovieTrailer(id))
+    } else if (type === 'tv') {
+      dispatch(fetchTvTrailer(id))
+    }
+
+
+  }, [dispatch, type, id]);
 
 
 
@@ -37,7 +46,7 @@ const DetailsPage = () => {
         <Container>
           <GoBackBtn state={{ from: prevLocation }} />
           {/* <Details state={{ from: prevLocation }} /> */}
-          <Video videoKey={videoKey} />
+         {type === 'movie' ? <Video videoKey={videoKey} /> : <Video videoKey={tvVideoKey} />}
           <Details />
         </Container>
       </Section>

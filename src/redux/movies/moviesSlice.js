@@ -5,6 +5,7 @@ import {
   getTopMoviesByYear,
   getTrendingShows,
   searchVideo,
+  searchTvVideo,
 } from './operations';
 
 // Запрос трендовых фильмов за день
@@ -55,6 +56,14 @@ export const fetchMovieTrailer = createAsyncThunk(
   }
 );
 
+export const fetchTvTrailer = createAsyncThunk(
+  'tv/fetchTrailer',
+  async (id) => {
+    const data = await searchTvVideo(id);
+    return data;
+  }
+)
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState: {
@@ -62,6 +71,7 @@ const moviesSlice = createSlice({
     weeklyFilms: [], // Тренды за неделю
     weeklyShows: [],
     trailers: [], // Трейлеры
+    tvTrailers: [],
     monthlyFilms: [], // Тренды за месяц
     yearlyFilms: [], // Тренды за год
     status: 'idle', // idle | loading | succeeded | failed
@@ -83,18 +93,29 @@ const moviesSlice = createSlice({
         state.error = action.error.message;
       })
 
-      // Трейлеры
+      // Трейлеры фильмов
       .addCase(fetchMovieTrailer.pending, state => {
         state.status = 'loading';
       })
       .addCase(fetchMovieTrailer.fulfilled, (state, action) => {
         state.status = 'succeeded';
-          state.trailers = action.payload
-         
-
-       
+        state.trailers = action.payload;
       })
       .addCase(fetchMovieTrailer.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+
+      // Трейлеры сериалов
+      .addCase(fetchTvTrailer.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(fetchTvTrailer.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.tvTrailers = action.payload;
+        console.log(state.tvTrailers);
+      })
+      .addCase(fetchTvTrailer.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
