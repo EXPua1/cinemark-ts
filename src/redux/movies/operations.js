@@ -4,6 +4,10 @@ export const getTrendingMovies = async (timeWindow = 'day') => {
   const { data } = await axios.get(`/trending/movie/${timeWindow}`);
   return data.results;
 };
+export const getTrendingShows = async (timeWindow = 'day') => {
+  const { data } = await axios.get(`/trending/tv/${timeWindow}`);
+  return data.results;
+};
 
 
 const getCurrentYearMonth = () => {

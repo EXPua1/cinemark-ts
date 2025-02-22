@@ -3,12 +3,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import GenresList from "../../components/GenresList/GenresList";
 import Hero from "../../components/Hero/Hero";
-import Rating from "../../components/Rating/Rating";
+
 import Section from "../../components/Section/Section";
 import Container from "../../components/Сontainer/Container";
-import { fetchMoviesMonth, fetchMoviesWeek, fetchMoviesYear } from "../../redux/movies/moviesSlice";
+import { fetchMoviesMonth, fetchMoviesWeek, fetchMoviesYear, fetchTvWeek } from "../../redux/movies/moviesSlice";
 import { useEffect } from "react";
-import { selectMonthlyMovies, selectWeeklyMovies, selectYearlyMovies } from "../../redux/movies/selectors";
+import { selectMonthlyMovies, selectWeeklyMovies, selectWeeklyShows, selectYearlyMovies } from "../../redux/movies/selectors";
+import RatingItem from "../../components/Rating/RatingItem/RatingItem";
+import Rating from "../../components/Rating/Rating";
 
 
 
@@ -16,7 +18,7 @@ const HomePage = () => {
   const weeklyFilm = useSelector(selectWeeklyMovies);
   const monthFilm = useSelector(selectMonthlyMovies);
   const yearFilm = useSelector(selectYearlyMovies);
-
+const tvWeek = useSelector(selectWeeklyShows)
 
 
   const dispatch = useDispatch()
@@ -25,6 +27,7 @@ const HomePage = () => {
     dispatch(fetchMoviesWeek());
     dispatch(fetchMoviesMonth());
     dispatch(fetchMoviesYear());
+    dispatch(fetchTvWeek());
 
   }, [dispatch]);
 
@@ -37,10 +40,12 @@ const HomePage = () => {
       <Section>
         <Container>
           <GenresList />
+          <Rating>
+            <RatingItem title={"Top 10 movies of the week"} films={weeklyFilm} />
+            <RatingItem title={"Top 10 Tv Shows of the week"} films={tvWeek} />
+            <RatingItem title={"Top 10 movies of the year"} films={yearFilm} />
+          </Rating>
 
-          <Rating title={"Top 10 movies of the week"} films={weeklyFilm} />
-          <Rating title={"Top 10 movies of month"} films={monthFilm} />
-          <Rating title={"Top 10 movies of the year"} films={yearFilm} />
 
 
         </Container>

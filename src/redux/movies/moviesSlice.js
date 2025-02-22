@@ -3,6 +3,7 @@ import {
   getTrendingMovies,
   getTopMoviesByMonth,
   getTopMoviesByYear,
+  getTrendingShows,
 } from './operations';
 
 // Запрос трендовых фильмов за день
@@ -22,6 +23,10 @@ export const fetchMoviesWeek = createAsyncThunk(
     return data;
   }
 );
+export const fetchTvWeek = createAsyncThunk('tv/fetchTvWeek', async () => {
+  const data = await getTrendingShows('week');
+  return data;
+});
 
 // Запрос топовых фильмов за текущий месяц
 export const fetchMoviesMonth = createAsyncThunk(
@@ -46,6 +51,7 @@ const moviesSlice = createSlice({
   initialState: {
     films: [], // Тренды за день
     weeklyFilms: [], // Тренды за неделю
+    weeklyShows: [],
     monthlyFilms: [], // Тренды за месяц
     yearlyFilms: [], // Тренды за год
     status: 'idle', // idle | loading | succeeded | failed
@@ -73,9 +79,25 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesWeek.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.weeklyFilms = action.payload;
+        state.weeklyFilms = action.payload.sort(
+          (a, b) => b.vote_average - a.vote_average
+        );
       })
       .addCase(fetchMoviesWeek.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      // Тренды за неделю Shows
+      .addCase(fetchTvWeek.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(fetchTvWeek.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.weeklyShows = action.payload.sort(
+          (a, b) => b.vote_average - a.vote_average
+        );
+      })
+      .addCase(fetchTvWeek.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })

@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import css from "./HeroList.module.css";
 import { genres } from "../../constants/genres";
+import { Link } from "react-router";
 
 const defImg = "https://via.placeholder.com/200";
 
@@ -58,19 +59,25 @@ const HeroList = ({ films }) => {
             >
                 {films.map((film) => (
                     <SwiperSlide className={css.swiperSlide} key={film.id}>
-                        <div className={css.slide}>
-                            <img
-                                src={film.poster_path ? `https://image.tmdb.org/t/p/w500${film.poster_path}` : defImg}
-                                alt={film.title}
-                                width={200}
-                            />
-                            <div className={css.info}>
-                                <p>{film.title}</p>
-                                <span className={css.film_genres}>{getGenres(film.genre_ids)}</span>
-                                <span>{film.rating}</span>
-                                <span className={css.rating}>{film.vote_average.toFixed(1)}</span>
+                        <Link to={`/${film.media_type}/${film.id}`} >
+                            <div className={css.slide}>
+
+                                <img
+                                    src={film.poster_path ? `https://image.tmdb.org/t/p/w500${film.poster_path}` : defImg}
+                                    alt={film.title}
+                                    width={200}
+                                />
+
+
+                                <div className={css.info}>
+                                    <p>{film.title}</p>
+                                    <span className={css.film_genres}>{getGenres(film.genre_ids)}</span>
+                                    <span>{film.rating}</span>
+                                    <span className={css.rating}>{film.vote_average.toFixed(1)}</span>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
+                        
                     </SwiperSlide>
                 ))}
             </Swiper>
