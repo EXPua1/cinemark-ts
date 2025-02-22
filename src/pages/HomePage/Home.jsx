@@ -6,7 +6,7 @@ import Hero from "../../components/Hero/Hero";
 
 import Section from "../../components/Section/Section";
 import Container from "../../components/Сontainer/Container";
-import { fetchMoviesMonth, fetchMoviesWeek, fetchMoviesYear, fetchTvWeek } from "../../redux/movies/moviesSlice";
+import { fetchMoviesDay, fetchMoviesMonth, fetchMoviesWeek, fetchMoviesYear, fetchTvWeek } from "../../redux/movies/moviesSlice";
 import { useEffect } from "react";
 import { selectMonthlyMovies, selectWeeklyMovies, selectWeeklyShows, selectYearlyMovies } from "../../redux/movies/selectors";
 import RatingItem from "../../components/Rating/RatingItem/RatingItem";
@@ -18,12 +18,14 @@ const HomePage = () => {
   const weeklyFilm = useSelector(selectWeeklyMovies);
   const monthFilm = useSelector(selectMonthlyMovies);
   const yearFilm = useSelector(selectYearlyMovies);
+  const { films} = useSelector((state) => state.movies);
 const tvWeek = useSelector(selectWeeklyShows)
 
 
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(fetchMoviesDay());
     dispatch(fetchMoviesWeek());
     dispatch(fetchMoviesMonth());
     dispatch(fetchMoviesYear());
@@ -34,8 +36,9 @@ const tvWeek = useSelector(selectWeeklyShows)
 
   return (
     <>
+      
 
-      <Hero />
+      <Hero films={films}/>
       {/* <HeroList films={films} /> */}
       <Section>
         <Container>

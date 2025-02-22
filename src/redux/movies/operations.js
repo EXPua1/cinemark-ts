@@ -47,3 +47,9 @@ export const getTopMoviesByYear = async () => {
 
   return data.results;
 };
+
+
+export const searchVideo = async (id) => {
+    const { data } = await axios.get(`/movie/${id}/videos`);
+    return data.results
+}

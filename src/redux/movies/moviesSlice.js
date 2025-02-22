@@ -4,6 +4,7 @@ import {
   getTopMoviesByMonth,
   getTopMoviesByYear,
   getTrendingShows,
+  searchVideo,
 } from './operations';
 
 // Запрос трендовых фильмов за день
@@ -46,12 +47,21 @@ export const fetchMoviesYear = createAsyncThunk(
   }
 );
 
+export const fetchMovieTrailer = createAsyncThunk(
+  'movies/fetchTrailer',
+  async id => {
+    const data = await searchVideo(id);
+    return data;
+  }
+);
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState: {
     films: [], // Тренды за день
     weeklyFilms: [], // Тренды за неделю
     weeklyShows: [],
+    trailers: [], // Трейлеры
     monthlyFilms: [], // Тренды за месяц
     yearlyFilms: [], // Тренды за год
     status: 'idle', // idle | loading | succeeded | failed
@@ -69,6 +79,22 @@ const moviesSlice = createSlice({
         state.films = action.payload;
       })
       .addCase(fetchMoviesDay.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+
+      // Трейлеры
+      .addCase(fetchMovieTrailer.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMovieTrailer.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+          state.trailers = action.payload
+         
+
+       
+      })
+      .addCase(fetchMovieTrailer.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
