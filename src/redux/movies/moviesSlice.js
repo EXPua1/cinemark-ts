@@ -7,6 +7,8 @@ import {
   searchVideo,
   searchTvVideo,
 } from './operations';
+import { IMAGE_URL } from '../../components/constants/const';
+import { getDetails } from '../../utils/api';
 
 // Запрос трендовых фильмов за день
 export const fetchMoviesDay = createAsyncThunk(
@@ -56,13 +58,19 @@ export const fetchMovieTrailer = createAsyncThunk(
   }
 );
 
-export const fetchTvTrailer = createAsyncThunk(
-  'tv/fetchTrailer',
-  async (id) => {
-    const data = await searchTvVideo(id);
-    return data;
+export const fetchTvTrailer = createAsyncThunk('tv/fetchTrailer', async id => {
+  const data = await searchTvVideo(id);
+  return data;
+});
+
+// Запит бекграунд-зображення фільму/серіалу
+export const fetchMovieBackground = createAsyncThunk(
+  'movies/fetchBackground',
+  async ({ type, id }) => {
+    const data = await getDetails(type, id);
+    return data.backdrop_path ? `${IMAGE_URL}${data.backdrop_path}` : null;
   }
-)
+);
 
 const moviesSlice = createSlice({
   name: 'movies',
@@ -74,6 +82,7 @@ const moviesSlice = createSlice({
     tvTrailers: [],
     monthlyFilms: [], // Тренды за месяц
     yearlyFilms: [], // Тренды за год
+    backgroundImage: null,
     status: 'idle', // idle | loading | succeeded | failed
     error: null,
   },
@@ -171,6 +180,19 @@ const moviesSlice = createSlice({
         state.yearlyFilms = action.payload;
       })
       .addCase(fetchMoviesYear.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+
+      // Бекграунд-зображення
+      .addCase(fetchMovieBackground.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMovieBackground.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.backgroundImage = action.payload;
+      })
+      .addCase(fetchMovieBackground.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
