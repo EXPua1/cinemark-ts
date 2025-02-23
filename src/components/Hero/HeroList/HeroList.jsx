@@ -14,7 +14,7 @@ import css from './HeroList.module.css';
 const defImg = 'https://via.placeholder.com/200';
 
 const HeroList = ({ films }) => {
-  console.log(films);
+  // console.log(films);
   const swiperRef = useRef(null);
 
   const getGenres = genreIds => {

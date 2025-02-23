@@ -23,7 +23,6 @@ const DetailsPage = () => {
   const [type, id] = location.pathname.split('/').slice(-2);
 
   const backgroundImage = useSelector(selectBackgroundImage);
-  console.log(backgroundImage);
 
   useEffect(() => {
     dispatch(fetchMovieBackground({ type, id }));
