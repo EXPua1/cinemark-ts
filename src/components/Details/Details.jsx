@@ -7,14 +7,14 @@ import PersonInfo from '../DetailsInfo/PersonInfo';
 import Video from '../Video/Video';
 
 import { getDetails } from '../../utils/api';
-import { IMAGE_URL } from '../constants/const';
+import { IMAGE_URL } from '../../constants/const';
 
 import css from './Details.module.css';
 
 const Details = () => {
   const { id, type } = useParams();
   const [data, setData] = useState(null);
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {

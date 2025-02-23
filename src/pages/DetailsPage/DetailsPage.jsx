@@ -9,6 +9,7 @@ import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
 import Details from '../../components/Details/Details';
 
 import { fetchMovieBackground } from '../../redux/movies/moviesSlice';
+import { selectBackgroundImage } from '../../redux/movies/selectors';
 
 import css from './DetailsPage.module.css';
 
@@ -21,8 +22,7 @@ const DetailsPage = () => {
 
   const [type, id] = location.pathname.split('/').slice(-2);
 
-  const backgroundImage = useSelector(state => state.movies.backgroundImage);
-  console.log(backgroundImage);
+  const backgroundImage = useSelector(selectBackgroundImage);
 
   useEffect(() => {
     dispatch(fetchMovieBackground({ type, id }));
