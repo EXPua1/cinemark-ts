@@ -7,7 +7,7 @@ import {
   searchVideo,
   searchTvVideo,
 } from './operations';
-import { IMAGE_URL } from '../../components/constants/const';
+import { BCKGRND_URL } from '../../constants/const';
 import { getDetails } from '../../utils/api';
 
 // Запрос трендовых фильмов за день
@@ -68,7 +68,7 @@ export const fetchMovieBackground = createAsyncThunk(
   'movies/fetchBackground',
   async ({ type, id }) => {
     const data = await getDetails(type, id);
-    return data.backdrop_path ? `${IMAGE_URL}${data.backdrop_path}` : null;
+    return data.backdrop_path ? `${BCKGRND_URL}${data.backdrop_path}` : null;
   }
 );
 

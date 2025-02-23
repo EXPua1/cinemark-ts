@@ -23,3 +23,5 @@ export const selectFilteredTrailers = createSelector(
     return { tvVideoKey, videoKey };
   }
 );
+
+export const selectBackgroundImage = state => state.movies.backgroundImage;

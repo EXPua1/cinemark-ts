@@ -7,7 +7,7 @@ import PersonInfo from '../DetailsInfo/PersonInfo';
 import Video from '../Video/Video';
 
 import { getDetails } from '../../utils/api';
-import { IMAGE_URL } from '../constants/const';
+import { IMAGE_URL } from '../../constants/const';
 
 import css from './Details.module.css';
 
