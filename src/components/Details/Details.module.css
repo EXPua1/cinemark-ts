@@ -1,0 +1,81 @@
+.titleName {
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 46px;
+  margin-bottom: 20px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  gap: 14px;
+}
+
+.imgMain {
+  display: block;
+  width: 156px;
+  height: 221px;
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+}
+
+.descript {
+  margin-top: 20px;
+  min-width: 296px;
+  max-width: 768px;
+  max-height: 150px; /* Встановлюємо максимальну висоту для контейнера */
+  overflow-y: auto; /* Включаємо вертикальний скрол */
+  padding: 10px;
+  background-color: rgba(35, 34, 34, 0.5);
+  border-radius: 8px;
+
+  /* Кастомізація скролбару */
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: var(--accent-color) #e0e0e0; /* Колір скролбару і фону для Firefox */
+}
+
+.textDescr {
+  font-size: 14px;
+  line-height: 24px;
+  color: #c7c7c7;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .titleName {
+    font-size: 40px;
+    line-height: 50px;
+  }
+
+  .imgMain {
+    width: 216px;
+    height: 306px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .titleName {
+    font-size: 42px;
+    margin-bottom: 34px;
+  }
+
+  .flex {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 12px;
+  }
+
+  .imgMain {
+    width: 196px;
+    height: 278px;
+  }
+}

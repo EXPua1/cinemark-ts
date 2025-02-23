@@ -1,0 +1,49 @@
+.rating {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+.rating::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  height: auto;
+  background: url('../../assets/star.svg') no-repeat center;
+  background-size: 100% auto;
+  filter: invert(61%) sepia(99%) saturate(547%) hue-rotate(1deg)
+    brightness(102%) contrast(101%);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.infoCont {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoCont li {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #c7c7c7;
+}
+
+.infoCont span {
+  margin-right: 5px;
+  color: #a6a4a4;
+}
+
+.actorsList {
+  margin-top: auto;
+}
