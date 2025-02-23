@@ -23,6 +23,9 @@ const Video = ({ id, type }) => {
   return (
     <div>
       <h2>Video</h2>
+      <div className='container'>
+
+      </div>
       <iframe
         width="560"
         height="315"
@@ -32,9 +35,9 @@ const Video = ({ id, type }) => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         style={{
-          borderRadius: '12px', 
+          borderRadius: '12px',
           boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-          overflow: 'hidden', 
+          overflow: 'hidden',
         }}
       ></iframe>
     </div>
