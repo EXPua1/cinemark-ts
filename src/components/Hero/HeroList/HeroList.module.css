@@ -5,6 +5,7 @@
 
 .title {
   margin-bottom: 20px;
+  font-size: 20px;
 }
 
 .swiper-slide {
@@ -17,18 +18,20 @@
 .slide {
   display: flex;
   flex-direction: column;
-  
+
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
+  
 }
 
 .slide img {
   width: 100%;
-  max-width: 200px;
+
   height: auto;
-  border-radius: 5px;
+
+  border-radius: 10px 10px 0 0;
 }
 
 .slide p {
@@ -51,7 +54,7 @@
   color: white;
   border: 1px solid #fad084;
   font-size: 24px;
-  padding: 10px;
+  padding: 15px;
   margin: 0 10px;
   cursor: pointer;
   border-radius: 8px;
@@ -65,7 +68,7 @@
   justify-content: center;
 }
 .rating {
-  font-size: 16px;
+   font-size: 14px;
   font-weight: 500;
   color: #fff;
   position: relative;
@@ -75,6 +78,7 @@
   align-items: center;
   margin-top: 5px;
   padding-left: 20px;
+
 }
 .rating::before {
   content: '';
@@ -85,19 +89,36 @@
   width: 16px;
   background: url('../../../assets//star.svg') no-repeat center;
   background-size: 100% auto;
-   filter: invert(61%) sepia(99%) saturate(547%) hue-rotate(1deg) brightness(102%) contrast(101%);
+  filter: invert(61%) sepia(99%) saturate(547%) hue-rotate(1deg)
+    brightness(102%) contrast(101%);
 }
 .info {
   text-align: start;
   display: flex;
   flex-direction: column;
+  background-color: #141414;
+  padding: 15px;
+  justify-content: center;
+  height: 120px;
+  border-radius: 0 0 12px 12px;
+}
+.link {
+  max-width: 200px;
 }
 
-.swiper_slide{
-    padding-bottom: 55px;
-}
-.film_genres{
-    color:#ffa500;
+.rating_Container{
+ font-size: 14px;
+  display: flex;
+ 
+  gap: 5px;
+  color: grey;
+  justify-content: space-between;
 }
 
-
+.swiper_slide {
+  padding-bottom: 55px;
+}
+.film_genres {
+  color: #ffa500;
+  font-size: 14px;
+}

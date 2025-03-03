@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import { genres } from '../../../constants/genres';
 
 import css from './HeroList.module.css';
+import { Icon } from '@iconify/react';
 
 const defImg = 'https://via.placeholder.com/200';
 
@@ -52,7 +53,8 @@ const HeroList = ({ films }) => {
         className={css.swiper_slide}
         modules={[Navigation, Pagination]}
         spaceBetween={10}
-        slidesPerView={4}
+        slidesPerView={5}
+
         pagination={{
           clickable: true,
           type: 'bullets',
@@ -62,30 +64,42 @@ const HeroList = ({ films }) => {
       >
         {films.map(film => (
           <SwiperSlide className={css.swiperSlide} key={film.id}>
-            <Link to={`/${film.media_type}/${film.id}`}>
-              <div className={css.slide}>
-                <img
-                  src={
-                    film.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
-                      : defImg
-                  }
-                  alt={film.title}
-                  width={200}
-                />
 
-                <div className={css.info}>
-                  <p>{film.title}</p>
-                  <span className={css.film_genres}>
-                    {getGenres(film.genre_ids)}
-                  </span>
-                  <span>{film.rating}</span>
-                  <span className={css.rating}>
-                    {film.vote_average.toFixed(1)}
-                  </span>
+            <div className={css.slide}>
+              <img
+                src={
+                  film.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
+                    : defImg
+                }
+                alt={film.title}
+                width={200}
+              />
+
+              <div className={css.info}>
+                <p>{film.title}</p>
+                <span className={css.film_genres}>
+                  {getGenres(film.genre_ids)}
+                </span>
+                <span>{film.rating}</span>
+                <div className={css.rating_Container}>
+                  <div className={css.rating_Count}>
+                    <span className={css.rating}>
+                      {film.vote_average.toFixed(1)}
+                    </span>
+                    <span>({film.vote_count})</span>
+                  </div>
+                  <Link className={css.link} to={`/${film.media_type}/${film.id}`}>
+                    <Icon icon="material-symbols:arrow-forward-ios-rounded" width="12" height="26" />
+                  </Link>
+
+
+
                 </div>
+
               </div>
-            </Link>
+            </div>
+
           </SwiperSlide>
         ))}
       </Swiper>
