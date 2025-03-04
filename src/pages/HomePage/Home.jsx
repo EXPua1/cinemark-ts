@@ -21,6 +21,11 @@ const HomePage = () => {
   const { films} = useSelector((state) => state.movies);
 const tvWeek = useSelector(selectWeeklyShows)
 
+  
+  
+  
+  
+ 
 
   const dispatch = useDispatch()
 

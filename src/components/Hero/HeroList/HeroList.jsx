@@ -64,8 +64,10 @@ const HeroList = ({ films }) => {
       >
         {films.map(film => (
           <SwiperSlide className={css.swiperSlide} key={film.id}>
-
+            <Link className={css.link} to={`/${film.media_type}/${film.id}`}>
             <div className={css.slide}>
+              
+             
               <img
                 src={
                   film.poster_path
@@ -89,16 +91,17 @@ const HeroList = ({ films }) => {
                     </span>
                     <span>({film.vote_count})</span>
                   </div>
-                  <Link className={css.link} to={`/${film.media_type}/${film.id}`}>
-                    <Icon icon="material-symbols:arrow-forward-ios-rounded" width="12" height="26" />
-                  </Link>
+                 
+                  <Icon className={css.icon} icon="material-symbols:arrow-forward-ios-rounded" width="12" height="26" />
+                 
 
 
 
                 </div>
 
               </div>
-            </div>
+              </div>
+            </Link>
 
           </SwiperSlide>
         ))}
