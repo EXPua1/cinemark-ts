@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import MovieInfo from '../DetailsInfo/MovieInfo';
@@ -6,27 +5,12 @@ import TvShowInfo from '../DetailsInfo/TvShowInfo';
 import PersonInfo from '../DetailsInfo/PersonInfo';
 import Video from '../Video/Video';
 
-import { getDetails } from '../../utils/api';
 import { IMAGE_URL } from '../../constants/const';
 
 import css from './Details.module.css';
 
-const Details = () => {
-  const { id, type } = useParams();
-  const [data, setData] = useState(null);
-  // console.log(data);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getDetails(type, id);
-        setData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, [id, type]);
+const Details = ({ details: data }) => {
+  const { type } = useParams();
 
   const InfoComponent =
     type === 'movie' ? MovieInfo : type === 'tv' ? TvShowInfo : PersonInfo;
@@ -56,9 +40,7 @@ const Details = () => {
               </div>
             </div>
 
-            {/* <DetailsInfo data={data} /> */}
-
-            {type !== 'person' && <Video id={id} type={type} />}
+            {type !== 'person' && <Video id={data.id} type={type} />}
           </div>
         </div>
       )}

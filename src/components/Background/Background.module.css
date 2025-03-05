@@ -1,0 +1,9 @@
+.background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 1;
+  opacity: 0.1;
+}
