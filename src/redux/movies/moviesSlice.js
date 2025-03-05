@@ -7,8 +7,6 @@ import {
   searchVideo,
   searchTvVideo,
 } from './operations';
-import { BCKGRND_URL } from '../../constants/const';
-import { getDetails } from '../../utils/api';
 
 // Запрос трендовых фильмов за день
 export const fetchMoviesDay = createAsyncThunk(
@@ -63,15 +61,6 @@ export const fetchTvTrailer = createAsyncThunk('tv/fetchTrailer', async id => {
   return data;
 });
 
-// Запит бекграунд-зображення фільму/серіалу
-export const fetchMovieBackground = createAsyncThunk(
-  'movies/fetchBackground',
-  async ({ type, id }) => {
-    const data = await getDetails(type, id);
-    return data.backdrop_path ? `${BCKGRND_URL}${data.backdrop_path}` : null;
-  }
-);
-
 const moviesSlice = createSlice({
   name: 'movies',
   initialState: {
@@ -82,8 +71,7 @@ const moviesSlice = createSlice({
     tvTrailers: [],
     monthlyFilms: [], // Тренды за месяц
     yearlyFilms: [], // Тренды за год
-    backgroundImage: null,
-    loading: false, 
+    loading: false,
     error: null,
   },
   reducers: {},
@@ -91,33 +79,33 @@ const moviesSlice = createSlice({
     builder
       // Тренды за день
       .addCase(fetchMoviesDay.pending, state => {
-         state.loading = true;
+        state.loading = true;
       })
       .addCase(fetchMoviesDay.fulfilled, (state, action) => {
-        state.status = false
+        state.status = false;
         state.films = action.payload;
       })
       .addCase(fetchMoviesDay.rejected, (state, action) => {
-        state.loading = false
+        state.loading = false;
         state.error = action.error.message;
       })
 
       // Трейлеры фильмов
       .addCase(fetchMovieTrailer.pending, state => {
-         state.loading = true;
+        state.loading = true;
       })
       .addCase(fetchMovieTrailer.fulfilled, (state, action) => {
-       state.status = false;
+        state.status = false;
         state.trailers = action.payload;
       })
       .addCase(fetchMovieTrailer.rejected, (state, action) => {
-         state.loading = false;
-         state.error = action.error.message;
+        state.loading = false;
+        state.error = action.error.message;
       })
 
       // Трейлеры сериалов
       .addCase(fetchTvTrailer.pending, state => {
-         state.loading = true;
+        state.loading = true;
       })
       .addCase(fetchTvTrailer.fulfilled, (state, action) => {
         state.status = false;
@@ -125,8 +113,8 @@ const moviesSlice = createSlice({
         console.log(state.tvTrailers);
       })
       .addCase(fetchTvTrailer.rejected, (state, action) => {
-         state.loading = false;
-         state.error = action.error.message;
+        state.loading = false;
+        state.error = action.error.message;
       })
 
       // Тренды за неделю
@@ -140,12 +128,12 @@ const moviesSlice = createSlice({
         );
       })
       .addCase(fetchMoviesWeek.rejected, (state, action) => {
-          state.loading = false;
-          state.error = action.error.message;
+        state.loading = false;
+        state.error = action.error.message;
       })
       // Тренды за неделю Shows
       .addCase(fetchTvWeek.pending, state => {
-         state.loading = true;
+        state.loading = true;
       })
       .addCase(fetchTvWeek.fulfilled, (state, action) => {
         state.status = false;
@@ -154,45 +142,32 @@ const moviesSlice = createSlice({
         );
       })
       .addCase(fetchTvWeek.rejected, (state, action) => {
-         state.loading = false;
-         state.error = action.error.message;
+        state.loading = false;
+        state.error = action.error.message;
       })
 
       // Топ фильмы за месяц
       .addCase(fetchMoviesMonth.pending, state => {
-         state.loading = true;
+        state.loading = true;
       })
       .addCase(fetchMoviesMonth.fulfilled, (state, action) => {
-       state.status = false;
+        state.status = false;
         state.monthlyFilms = action.payload;
       })
       .addCase(fetchMoviesMonth.rejected, (state, action) => {
-         state.loading = false;
-         state.error = action.error.message;
+        state.loading = false;
+        state.error = action.error.message;
       })
 
       // Топ фильмы за год
       .addCase(fetchMoviesYear.pending, state => {
-         state.loading = true;
+        state.loading = true;
       })
       .addCase(fetchMoviesYear.fulfilled, (state, action) => {
         state.status = false;
         state.yearlyFilms = action.payload;
       })
       .addCase(fetchMoviesYear.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      // Бекграунд-зображення
-      .addCase(fetchMovieBackground.pending, state => {
-        state.loading = true;
-      })
-      .addCase(fetchMovieBackground.fulfilled, (state, action) => {
-         state.status = false;
-        state.backgroundImage = action.payload;
-      })
-      .addCase(fetchMovieBackground.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

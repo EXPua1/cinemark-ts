@@ -1,32 +1,35 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 // import clsx from 'clsx';
 
 import Section from '../../components/Section/Section';
 import Container from '../../components/Сontainer/Container';
 import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
 import Details from '../../components/Details/Details';
+import Background from '../../components/Background/Background';
 
-import { fetchMovieBackground } from '../../redux/movies/moviesSlice';
-import { selectBackgroundImage } from '../../redux/movies/selectors';
+import { getDetails } from '../../utils/api';
 
 import css from './DetailsPage.module.css';
 
 const DetailsPage = () => {
-  // const { type, id } = useParams();
-  // console.log({ type });
-  const dispatch = useDispatch();
+  const [data, setData] = useState(null);
+  const { type, id } = useParams();
+
   const location = useLocation();
   const prevLocation = location.state?.from || '/';
 
-  const [type, id] = location.pathname.split('/').slice(-2);
-
-  const backgroundImage = useSelector(selectBackgroundImage);
-
   useEffect(() => {
-    dispatch(fetchMovieBackground({ type, id }));
-  }, [dispatch, type, id]);
+    const fetchData = async () => {
+      try {
+        const data = await getDetails(type, id);
+        setData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [id, type]);
 
   // const buildCssClasses = ({ isActive }) =>
   //   clsx(css.link, isActive && css.active);
@@ -34,17 +37,12 @@ const DetailsPage = () => {
   return (
     <>
       <Section className={css.sectionDetails}>
-        <div
-          className={css.background}
-          style={{
-            backgroundImage: backgroundImage
-              ? `url(${backgroundImage})`
-              : 'none',
-          }}
-        />
+        <Background backgroundPath={data?.backdrop_path} />
+
         <Container className={css.containerDetails}>
           <GoBackBtn state={{ from: prevLocation }} />
-          <Details />
+
+          <Details details={data} />
         </Container>
       </Section>
 
