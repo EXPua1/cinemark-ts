@@ -14,6 +14,7 @@ import css from './DetailsPage.module.css';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
+
   const { type, id } = useParams();
 
   const location = useLocation();
