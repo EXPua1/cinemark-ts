@@ -1,10 +1,13 @@
 import css from './DetailsInfo.module.css';
 import { formatDate } from '../../utils/func';
 
-const TvShowInfo = ({ data }) => {
+const TvShowInfo = ({ data, ageCertification }) => {
   return (
     <div className={css.infoCont}>
-      <p className={css.rating}>{data.vote_average.toFixed(1)}</p>
+      <div className={css.ratingCont}>
+        <p className={css.rating}>{data.vote_average.toFixed(1)}</p>
+        <p className={css.age}>{ageCertification}</p>
+      </div>
 
       <ul className={css.infoList}>
         <li>

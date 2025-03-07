@@ -1,10 +1,15 @@
 import { formatDate } from '../../utils/func';
+
 import css from './DetailsInfo.module.css';
 
-const MovieInfo = ({ data }) => {
+const MovieInfo = ({ data, ageCertification }) => {
   return (
     <div className={css.infoCont}>
-      <p className={css.rating}>{data.vote_average.toFixed(1)}</p>
+      <div className={css.ratingCont}>
+        <p className={css.rating}>{data.vote_average.toFixed(1)}</p>
+        <p className={css.age}>{ageCertification}</p>
+      </div>
+
       <ul className={css.infoList}>
         <li>
           <span>Genre:</span>
@@ -24,6 +29,7 @@ const MovieInfo = ({ data }) => {
           <span>Status:</span> {data.status}
         </li>
       </ul>
+
       <ul className={css.actorsList}>
         <li>
           <span>Director:</span> bla, bla

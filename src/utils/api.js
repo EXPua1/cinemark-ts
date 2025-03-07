@@ -29,3 +29,13 @@ export const getDetails = async (type, id) => {
   const { data } = await axios.get(`/${type}/${id}`);
   return data;
 };
+
+export const getReleaseDates = async id => {
+  const { data } = await axios.get(`/movie/${id}/release_dates`);
+  return data;
+};
+
+export const getContentRatings = async id => {
+  const { data } = await axios.get(`/tv/${id}/content_ratings`);
+  return data;
+};

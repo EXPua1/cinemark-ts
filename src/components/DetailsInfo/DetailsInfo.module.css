@@ -1,9 +1,18 @@
+.ratingCont {
+  margin-bottom: 15px;
+  height: 24px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
+  align-items: center;
+}
+
 .rating {
   font-size: 16px;
   font-weight: 500;
   color: #fff;
   position: relative;
-  margin-bottom: 15px;
   padding-left: 20px;
 }
 
@@ -19,6 +28,19 @@
   background-size: 100% auto;
   filter: invert(61%) sepia(99%) saturate(547%) hue-rotate(1deg)
     brightness(102%) contrast(101%);
+}
+
+.age {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 5px;
+  border: 1px solid rgba(199, 199, 199, 0.5);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c7c7c7;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .infoList {
