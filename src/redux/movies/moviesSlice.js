@@ -110,7 +110,7 @@ const moviesSlice = createSlice({
       .addCase(fetchTvTrailer.fulfilled, (state, action) => {
         state.status = false;
         state.tvTrailers = action.payload;
-        console.log(state.tvTrailers);
+        // console.log(state.tvTrailers);
       })
       .addCase(fetchTvTrailer.rejected, (state, action) => {
         state.loading = false;
