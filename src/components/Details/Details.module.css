@@ -38,6 +38,10 @@
   scrollbar-color: var(--accent-color) #e0e0e0;
   margin-bottom: 20px;
 }
+.btn{
+  width: 200px;
+  color: #c7c7c7;
+}
 
 .textDescr {
   font-size: 14px;

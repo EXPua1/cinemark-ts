@@ -13,8 +13,8 @@ import { IMAGE_URL } from '../../constants/const';
 import css from './Details.module.css';
 
 const Details = ({ details: data, type },) => {
- 
- 
+  const [openVideo, setOpenVideo] = useState(false);
+
   const [ageCertification, setAgeCertification] = useState('');
 
   useEffect(() => {
@@ -53,8 +53,12 @@ const Details = ({ details: data, type },) => {
                 </p>
               </div>
             </div>
-
-            {type !== 'person' && <Video id={data.id} type={type} />}
+            
+            {!openVideo ? <button className={css.btn} onClick={() => setOpenVideo(!openVideo)}>
+              Watch Trailer
+            </button> : <Video id={data.id} type={type} />}
+           
+           
           </div>
         </div>
       )}

@@ -9,6 +9,8 @@ export const selectMonthlyMovies = state => state.movies.monthlyFilms;
 export const selectYearlyMovies = state => state.movies.yearlyFilms;
 export const selectWeeklyShows = state => state.movies.weeklyShows;
 
+export const selectVideoLoading = state => state.movies.loadingVideo;
+
 export const selectTrailers = state => state.movies.trailers;
 export const selectTvTrailers = state => state.movies.tvTrailers;
 
