@@ -12,8 +12,9 @@ import { IMAGE_URL } from '../../constants/const';
 
 import css from './Details.module.css';
 
-const Details = ({ details: data }) => {
-  const { type } = useParams();
+const Details = ({ details: data, type },) => {
+ 
+ 
   const [ageCertification, setAgeCertification] = useState('');
 
   useEffect(() => {

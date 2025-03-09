@@ -1,3 +1,4 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getTrendingMovies = async (timeWindow = 'day') => {
@@ -54,3 +55,60 @@ export const searchTvVideo = async (id, season = 1) => {
   const { data } = await axios.get(`/tv/${id}/season/${season}/videos`);
   return data.results;
 };
+
+
+export const fetchTrailer = createAsyncThunk(
+  'media/fetchTrailer',
+  async ({ id, type }, { rejectWithValue }) => {
+    try {
+      const fetchFunction = type === 'movie' ? searchVideo : searchTvVideo;
+      const data = await fetchFunction(id);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
+
+export const fetchMoviesDay = createAsyncThunk(
+  'movies/fetchMoviesDay',
+  async () => {
+    const data = await getTrendingMovies('day');
+    return data;
+  }
+);
+
+// Запрос трендовых фильмов за неделю
+export const fetchMoviesWeek = createAsyncThunk(
+  'movies/fetchMoviesWeek',
+  async () => {
+    const data = await getTrendingMovies('week');
+    return data;
+  }
+);
+
+// Запрос трендовых сериалов за неделю
+export const fetchTvWeek = createAsyncThunk('tv/fetchTvWeek', async () => {
+  const data = await getTrendingShows('week');
+  return data;
+});
+
+// Запрос топовых фильмов за текущий месяц
+export const fetchMoviesMonth = createAsyncThunk(
+  'movies/fetchMoviesMonth',
+  async () => {
+    const data = await getTopMoviesByMonth();
+    return data;
+  }
+);
+
+// Запрос топовых фильмов за текущий год
+export const fetchMoviesYear = createAsyncThunk(
+  'movies/fetchMoviesYear',
+  async () => {
+    const data = await getTopMoviesByYear();
+    return data;
+  }
+);

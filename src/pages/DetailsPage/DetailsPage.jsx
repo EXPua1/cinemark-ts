@@ -11,12 +11,14 @@ import Background from '../../components/Background/Background';
 import { getDetails } from '../../utils/api';
 
 import css from './DetailsPage.module.css';
+import { fetchTrailer } from '../../redux/movies/operations';
+import { useDispatch } from 'react-redux';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
-
+  const [trailer, setTrailer] = useState(null);
   const { type, id } = useParams();
-
+const dispatch = useDispatch();
   const location = useLocation();
   const prevLocation = location.state?.from || '/';
 
@@ -25,6 +27,7 @@ const DetailsPage = () => {
       try {
         setData(null);
         const data = await getDetails(type, id);
+        console.log(data)
         setData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -32,6 +35,10 @@ const DetailsPage = () => {
     };
     fetchData();
   }, [id, type]);
+
+  useEffect(() => {
+    dispatch(fetchTrailer({ id, type }));
+  }, [dispatch, type, id]);
 
   // const buildCssClasses = ({ isActive }) =>
   //   clsx(css.link, isActive && css.active);
@@ -44,7 +51,7 @@ const DetailsPage = () => {
         <Container className={css.containerDetails}>
           <GoBackBtn state={{ from: prevLocation }} />
 
-          <Details details={data} />
+          <Details details={data} type={type} />
         </Container>
       </Section>
 

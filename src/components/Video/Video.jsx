@@ -3,23 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import css from './Video.module.css';
 
-import {
-  fetchMovieTrailer,
-  fetchTvTrailer,
-} from '../../redux/movies/moviesSlice';
+import {fetchTrailer} from '../../redux/movies/operations';
+
 import { selectFilteredTrailers } from '../../redux/movies/selectors';
 
 const Video = ({ id, type }) => {
   const dispatch = useDispatch();
   const { tvVideoKey, videoKey } = useSelector(selectFilteredTrailers);
 
-  useEffect(() => {
-    if (type === 'movie') {
-      dispatch(fetchMovieTrailer(id));
-    } else if (type === 'tv') {
-      dispatch(fetchTvTrailer(id));
-    }
-  }, [dispatch, type, id]);
+
 
   return (
     <div className={css.container}>
@@ -27,9 +19,8 @@ const Video = ({ id, type }) => {
         <iframe
           // width="560"
           // height="315"
-          src={`https://www.youtube.com/embed/${
-            type === 'movie' ? videoKey : tvVideoKey
-          }?autohide=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&enablejsapi=1`}
+          src={`https://www.youtube.com/embed/${type === 'movie' ? videoKey : tvVideoKey
+            }?autohide=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&enablejsapi=1`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

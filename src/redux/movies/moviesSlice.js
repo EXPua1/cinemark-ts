@@ -1,74 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  getTrendingMovies,
-  getTopMoviesByMonth,
-  getTopMoviesByYear,
-  getTrendingShows,
-  searchVideo,
-  searchTvVideo,
+  fetchMoviesDay,
+  fetchMoviesWeek,
+  fetchMoviesMonth,
+  fetchMoviesYear,
+  fetchTvWeek,
+  fetchTrailer,
 } from './operations';
 
 // Запрос трендовых фильмов за день
-export const fetchMoviesDay = createAsyncThunk(
-  'movies/fetchMoviesDay',
-  async () => {
-    const data = await getTrendingMovies('day');
-    return data;
-  }
-);
-
-// Запрос трендовых фильмов за неделю
-export const fetchMoviesWeek = createAsyncThunk(
-  'movies/fetchMoviesWeek',
-  async () => {
-    const data = await getTrendingMovies('week');
-    return data;
-  }
-);
-export const fetchTvWeek = createAsyncThunk('tv/fetchTvWeek', async () => {
-  const data = await getTrendingShows('week');
-  return data;
-});
-
-// Запрос топовых фильмов за текущий месяц
-export const fetchMoviesMonth = createAsyncThunk(
-  'movies/fetchMoviesMonth',
-  async () => {
-    const data = await getTopMoviesByMonth(); // Используем текущий месяц автоматически
-    return data;
-  }
-);
-
-// Запрос топовых фильмов за текущий год
-export const fetchMoviesYear = createAsyncThunk(
-  'movies/fetchMoviesYear',
-  async () => {
-    const data = await getTopMoviesByYear(); // Используем текущий год автоматически
-    return data;
-  }
-);
-
-export const fetchMovieTrailer = createAsyncThunk(
-  'movies/fetchTrailer',
-  async id => {
-    const data = await searchVideo(id);
-    return data;
-  }
-);
-
-export const fetchTvTrailer = createAsyncThunk('tv/fetchTrailer', async id => {
-  const data = await searchTvVideo(id);
-  return data;
-});
 
 const moviesSlice = createSlice({
   name: 'movies',
   initialState: {
     films: [], // Тренды за день
     weeklyFilms: [], // Тренды за неделю
-    weeklyShows: [],
-    trailers: [], // Трейлеры
-    tvTrailers: [],
+    weeklyShows: [], // Тренды сериалов за неделю
+    trailers: [], // Трейлеры фильмов
+    tvTrailers: [], // Трейлеры сериалов
     monthlyFilms: [], // Тренды за месяц
     yearlyFilms: [], // Тренды за год
     loading: false,
@@ -82,7 +31,7 @@ const moviesSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchMoviesDay.fulfilled, (state, action) => {
-        state.status = false;
+        state.loading = false;
         state.films = action.payload;
       })
       .addCase(fetchMoviesDay.rejected, (state, action) => {
@@ -90,40 +39,31 @@ const moviesSlice = createSlice({
         state.error = action.error.message;
       })
 
-      // Трейлеры фильмов
-      .addCase(fetchMovieTrailer.pending, state => {
+      // Универсальный запрос трейлеров
+      .addCase(fetchTrailer.pending, state => {
         state.loading = true;
       })
-      .addCase(fetchMovieTrailer.fulfilled, (state, action) => {
-        state.status = false;
-        state.trailers = action.payload;
-      })
-      .addCase(fetchMovieTrailer.rejected, (state, action) => {
+      .addCase(fetchTrailer.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        const { type } = action.meta.arg;
+        if (type === 'movie') {
+          state.trailers = action.payload;
+        } else if (type === 'tv') {
+          state.tvTrailers = action.payload;
+        }
+      })
+      .addCase(fetchTrailer.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message;
       })
 
-      // Трейлеры сериалов
-      .addCase(fetchTvTrailer.pending, state => {
-        state.loading = true;
-      })
-      .addCase(fetchTvTrailer.fulfilled, (state, action) => {
-        state.status = false;
-        state.tvTrailers = action.payload;
-        // console.log(state.tvTrailers);
-      })
-      .addCase(fetchTvTrailer.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      // Тренды за неделю
+      // Тренды за неделю (фильмы)
       .addCase(fetchMoviesWeek.pending, state => {
         state.loading = true;
       })
       .addCase(fetchMoviesWeek.fulfilled, (state, action) => {
-        state.status = false;
-        state.weeklyFilms = action.payload.sort(
+        state.loading = false;
+        state.weeklyFilms = [...action.payload].sort(
           (a, b) => b.vote_average - a.vote_average
         );
       })
@@ -131,13 +71,14 @@ const moviesSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      // Тренды за неделю Shows
+
+      // Тренды за неделю (сериалы)
       .addCase(fetchTvWeek.pending, state => {
         state.loading = true;
       })
       .addCase(fetchTvWeek.fulfilled, (state, action) => {
-        state.status = false;
-        state.weeklyShows = action.payload.sort(
+        state.loading = false;
+        state.weeklyShows = [...action.payload].sort(
           (a, b) => b.vote_average - a.vote_average
         );
       })
@@ -151,7 +92,7 @@ const moviesSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchMoviesMonth.fulfilled, (state, action) => {
-        state.status = false;
+        state.loading = false;
         state.monthlyFilms = action.payload;
       })
       .addCase(fetchMoviesMonth.rejected, (state, action) => {
@@ -164,7 +105,7 @@ const moviesSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchMoviesYear.fulfilled, (state, action) => {
-        state.status = false;
+        state.loading = false;
         state.yearlyFilms = action.payload;
       })
       .addCase(fetchMoviesYear.rejected, (state, action) => {

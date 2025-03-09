@@ -8,19 +8,14 @@ import Container from '../../components/Сontainer/Container';
 import RatingItem from '../../components/Rating/RatingItem/RatingItem';
 import Rating from '../../components/Rating/Rating';
 
-import {
-  fetchMoviesDay,
-  fetchMoviesMonth,
-  fetchMoviesWeek,
-  fetchMoviesYear,
-  fetchTvWeek,
-} from '../../redux/movies/moviesSlice';
+
 import {
   selectMonthlyMovies,
   selectWeeklyMovies,
   selectWeeklyShows,
   selectYearlyMovies,
 } from '../../redux/movies/selectors';
+import { fetchMoviesDay, fetchMoviesMonth, fetchMoviesWeek, fetchMoviesYear, fetchTvWeek } from '../../redux/movies/operations';
 
 const HomePage = () => {
   const weeklyFilm = useSelector(selectWeeklyMovies);
