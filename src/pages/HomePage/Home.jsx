@@ -37,7 +37,7 @@ const HomePage = () => {
   return (
     <>
       <Hero films={films} />
-      {/* <HeroList films={films} /> */}
+    
       <Section>
         <Container>
           <GenresList />

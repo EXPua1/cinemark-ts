@@ -4,12 +4,15 @@ import css from './RatingItem.module.css';
 
 const RatingItem = ({ title, films }) => {
   const location = useLocation();
+
+  const slisedfilms = films.slice(0, 10);
+ 
   return (
     <div>
       <h2>{title}</h2>
       <div className={css.container}>
         <ul className={css.list}>
-          {films.map((film, index) => {
+          {slisedfilms.map((film, index) => {
             const type = film.media_type || 'movie';
 
             return (
@@ -24,7 +27,7 @@ const RatingItem = ({ title, films }) => {
                   </div>
                   <div>
 
-                    <p>  {index + 1}. {film.title || film.name}</p>
+                    <p>{index + 1}. {film.title || film.name}</p>
                     <div className={css.year}>
                       <p>{film.release_date?.split('-')[0] || film.first_air_date?.split('-')[0]}</p>
                       <p>{film.runtime}</p>
