@@ -23,6 +23,7 @@ const DetailsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setData(null);
         const data = await getDetails(type, id);
         setData(data);
       } catch (error) {
