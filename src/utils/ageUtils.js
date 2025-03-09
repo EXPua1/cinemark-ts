@@ -114,9 +114,9 @@ export const fetchAgeCertification = async (type, id, setAgeCertification) => {
       // console.log(rating);
     }
 
-    setAgeCertification(formatAgeRating(rating));
+    setAgeCertification(formatAgeRating(rating) || 'No age info');
   } catch (error) {
     console.error('Error fetching age certification:', error);
-    setAgeCertification('No age certification');
+    setAgeCertification('No age info');
   }
 };
