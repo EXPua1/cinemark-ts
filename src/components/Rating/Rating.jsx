@@ -1,12 +1,7 @@
-import React from 'react'
-import css from './Rating.module.css'
+import css from './Rating.module.css';
 
-const Rating = ({children}) => {
-  return (
-      <div className={css.container}>
-          {children}
-    </div>
-  )
-}
+const Rating = ({ children }) => {
+  return <div className={css.container}>{children}</div>;
+};
 
-export default Rating
+export default Rating;
