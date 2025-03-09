@@ -4,22 +4,17 @@ const ageRatingsMap = {
   G: '0+',
   PG: '6+',
   'PG-13': '12+',
+  PG13: '14+',
   R: '16+',
   'NC-17': '18+',
   NR: '18+',
   U: '0+',
   'PG-12': '12+',
   '12A': '12+',
-  12: '12+',
-  15: '15+',
-  16: '16+',
-  18: '18+',
   R18: '18+',
   M: '16+',
   'MA15+': '15+',
   'R18+': '18+',
-  '+13': '13+',
-  '+16': '16+',
   ATP: '0+',
   'TV-Y': '0+',
   'TV-Y7': '7+',
@@ -37,25 +32,26 @@ const formatAgeRating = rating => {
   return ageRatingsMap[rating] || '';
 };
 
+// Список країн для пошуку сертифікатів за популярністю
+const countriesPriority = [
+  'UA',
+  'US',
+  'DE',
+  'GB',
+  'FR',
+  'IT',
+  'CA',
+  'AU',
+  'ES',
+];
+
+// Пошук сертифікатів для фільмів
 const getMovieAgeCertification = async id => {
   try {
     const releaseData = await getReleaseDates(id);
     // console.log(releaseData);
 
     if (!releaseData?.results) return '';
-
-    // Список країн для пошуку сертифікатів за популярністю
-    const countriesPriority = [
-      'UA',
-      'US',
-      'DE',
-      'GB',
-      'FR',
-      'IT',
-      'CA',
-      'AU',
-      'ES',
-    ];
 
     // Перевірка по кожній країні в порядку пріоритету
     for (const country of countriesPriority) {
@@ -68,12 +64,12 @@ const getMovieAgeCertification = async id => {
 
     // Якщо сертифікат не знайдено, то використовуємо поточний пошук по всіх даних
     for (const item of releaseData.results) {
-      console.log({ item });
+      // console.log({ item });
 
       const certification = item.release_dates.find(
         date => date.certification
       )?.certification;
-      console.log(certification?.certification);
+      // console.log(certification?.certification);
 
       if (certification) return certification;
     }
@@ -83,19 +79,23 @@ const getMovieAgeCertification = async id => {
   }
 };
 
+// Пошук сертифікатів для серіалів
 const getTvAgeCertification = async id => {
   try {
     const contentData = await getContentRatings(id);
-    console.log({ contentData });
+    // console.log({ contentData });
 
     if (!contentData?.results) return '';
 
-    for (const country of ['UA', 'US']) {
+    for (const country of countriesPriority) {
       const rating = contentData.results.find(
         item => item.iso_3166_1 === country
       )?.rating;
       if (rating) return rating;
     }
+
+    const rating = contentData.results.find(item => item.rating).rating;
+    if (rating) return rating;
   } catch (error) {
     console.error('Error fetching TV age certification:', error);
     return '';
@@ -111,7 +111,7 @@ export const fetchAgeCertification = async (type, id, setAgeCertification) => {
       // console.log(rating);
     } else if (type === 'tv') {
       rating = await getTvAgeCertification(id);
-      console.log(rating);
+      // console.log(rating);
     }
 
     setAgeCertification(formatAgeRating(rating));
