@@ -1,38 +1,59 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import ReactPlayer from 'react-player/lazy';
+import { IMAGE_URL } from '../../constants/const';
 import css from './Video.module.css';
-
-import {fetchTrailer} from '../../redux/movies/operations';
 
 import { selectFilteredTrailers } from '../../redux/movies/selectors';
 
-const Video = ({ id, type }) => {
-  const dispatch = useDispatch();
-  const { tvVideoKey, videoKey } = useSelector(selectFilteredTrailers);
+const Video = ({ id, type, posterPath }) => {
+  const [isPlayerActive, setIsPlayerActive] = useState(false); 
+  const { tvVideoKey, videoKey, loading } = useSelector(selectFilteredTrailers);
+  console.log(posterPath)
+  const videoUrl = type === 'movie' ? videoKey : tvVideoKey;
 
+  
+  const handlePlayClick = () => {
+    if (videoUrl) {
 
+      setIsPlayerActive(true);
+    }
+  };
 
   return (
-    <div className={css.container}>
-      {videoKey || tvVideoKey ? (
-        <iframe
-          // width="560"
-          // height="315"
-          src={`https://www.youtube.com/embed/${type === 'movie' ? videoKey : tvVideoKey
-            }?autohide=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&enablejsapi=1`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          style={{
-            borderRadius: '12px',
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden',
-          }}
-        ></iframe>
+    <div className={`${css.container} ${isPlayerActive ? css.fadeIn : ''}`}>
+      {isPlayerActive && videoUrl ? (
+        <ReactPlayer
+          url={`https://www.youtube.com/watch?v=${videoUrl}`}
+          controls
+          playing={true} 
+          width="100%"
+          height="100%"
+        />
       ) : (
-        <p>Loading video...</p>
+        <div
+          style={{
+            backgroundImage: posterPath ? `url(${IMAGE_URL}${posterPath})` : 'none',
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center', 
+          }}
+            className={`${css.placeholder} ${isPlayerActive ? css.fadeOut : ''}`}
+          onClick={handlePlayClick}
+          role="button"
+          tabIndex={0} 
+          onKeyDown={(e) => e.key === 'Enter' && handlePlayClick()}
+        >
+          {loading ? (
+            <p>Loading...</p>
+          ) : videoUrl ? (
+            <>
+              <div className={css.playIcon}>▶</div>
+              <p>Watch Trailer</p>
+            </>
+          ) : (
+            <p>Not avaible</p>
+          )}
+        </div>
       )}
     </div>
   );

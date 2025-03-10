@@ -57,10 +57,20 @@ const HeroList = ({ films }) => {
 
         pagination={{
           clickable: true,
-          type: 'bullets',
+          type: 'bullets'
         }}
         loop={true}
         onSwiper={swiper => (swiperRef.current = swiper)}
+        breakpoints={{
+          320: { slidesPerView: 1 }, // На маленьких экранах 1 слайд
+          480: { slidesPerView: 2 }, // Чуть больше экран - 2 слайда
+          768: { slidesPerView: 3 }, // Планшеты - 3 слайда
+          1024: { slidesPerView: 4 }, // Десктоп - 4 слайда
+          1200: { slidesPerView: 5, }, // От 1200px и выше - 5 слайдов
+        }}
+        style={{
+          "--swiper-pagination-color": "#F49300",
+        }}
       >
         {films.map(film => (
           <SwiperSlide className={css.swiperSlide} key={film.id}>

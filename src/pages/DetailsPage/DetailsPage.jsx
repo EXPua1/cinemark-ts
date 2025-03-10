@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 // import clsx from 'clsx';
 
@@ -36,7 +36,7 @@ const dispatch = useDispatch();
     fetchData();
   }, [id, type]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(fetchTrailer({ id, type }));
   }, [dispatch, type, id]);
 

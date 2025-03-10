@@ -14,6 +14,7 @@ import css from './Details.module.css';
 
 const Details = ({ details: data, type },) => {
   const [openVideo, setOpenVideo] = useState(false);
+  console.log(data);
 
   const [ageCertification, setAgeCertification] = useState('');
 
@@ -54,9 +55,7 @@ const Details = ({ details: data, type },) => {
               </div>
             </div>
             
-            {!openVideo ? <button className={css.btn} onClick={() => setOpenVideo(!openVideo)}>
-              Watch Trailer
-            </button> : <Video id={data.id} type={type} />}
+             <Video id={data.id} type={type} posterPath={data.poster_path} />
            
            
           </div>

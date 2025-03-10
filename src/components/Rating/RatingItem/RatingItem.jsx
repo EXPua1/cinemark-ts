@@ -5,8 +5,8 @@ import css from './RatingItem.module.css';
 const RatingItem = ({ title, films }) => {
   const location = useLocation();
 
+  // const slisedfilms = films.filter((film, index) => index < 10);
   const slisedfilms = films.slice(0, 10);
- 
   return (
     <div>
       <h2>{title}</h2>
@@ -40,7 +40,7 @@ const RatingItem = ({ title, films }) => {
                 </div>
                 <Link from={location} to={`/${type}/${film.id}`}>
 
-                  <GoInfo />
+                  <GoInfo size={25}  />
                 </Link>
 
 
