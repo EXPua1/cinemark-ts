@@ -13,8 +13,8 @@ import { IMAGE_URL } from '../../constants/const';
 import css from './Details.module.css';
 
 const Details = ({ details: data, type },) => {
-  const [openVideo, setOpenVideo] = useState(false);
-  console.log(data);
+  
+  
 
   const [ageCertification, setAgeCertification] = useState('');
 

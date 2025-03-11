@@ -34,7 +34,7 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesDay.fulfilled, (state, action) => {
         state.loading = false;
-        state.films = action.payload || []; // Защита от пустого ответа
+        state.films = action.payload || []; 
       })
       .addCase(fetchMoviesDay.rejected, (state, action) => {
         state.loading = false;
