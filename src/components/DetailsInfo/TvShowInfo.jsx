@@ -1,7 +1,9 @@
 import css from './DetailsInfo.module.css';
 import { formatDate } from '../../utils/func';
 
-const TvShowInfo = ({ data, ageCertification }) => {
+const TvShowInfo = ({ data, ageCertification, credits }) => {
+  console.log(credits);
+
   return (
     <div className={css.infoCont}>
       <div className={css.ratingCont}>

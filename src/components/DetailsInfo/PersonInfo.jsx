@@ -2,6 +2,8 @@ import { formatDate } from '../../utils/func';
 import css from './DetailsInfo.module.css';
 
 const PeopleInfo = ({ data }) => {
+  // console.log(data);
+
   return (
     <div className={css.infoCont}>
       <p className={css.rating}>{data.popularity}</p>
@@ -13,7 +15,7 @@ const PeopleInfo = ({ data }) => {
           <span>Birthday:</span> {formatDate(data.birthday)}
         </li>
         <li>
-          <span>Place of Birth:</span> {data.place_of_birth}
+          <span>Place of Birth:</span> <p>{data.place_of_birth || 'Unknown'}</p>{' '}
         </li>
       </ul>
       <ul className={css.actorsList}>
