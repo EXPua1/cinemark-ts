@@ -37,10 +37,13 @@ const HomePage = () => {
   return (
     <>
       <Hero films={films} />
-    
-      <Section>
-        <Container>
+      <Container>
+
+        <Section>
+
           <GenresList />
+        </Section>
+        <Section>
           <Rating>
             <RatingItem
               title={'Top 10 movies of the week'}
@@ -49,8 +52,11 @@ const HomePage = () => {
             <RatingItem title={'Top 10 Tv Shows of the week'} films={tvWeek} />
             <RatingItem title={'Top 10 movies of the year'} films={yearFilm} />
           </Rating>
-        </Container>
-      </Section>
+        </Section>
+
+
+
+      </Container>
     </>
   );
 };

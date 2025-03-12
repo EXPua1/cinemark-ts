@@ -14,7 +14,7 @@ const GenresList = () => {
   return (
     <div className={css.container}>
       <div>
-        <h2>Genres</h2>
+        <h2 className={css.title}>Genres</h2>
 
         <ul className={css.list}>
           {genres.map(genre => (

@@ -9,7 +9,7 @@ const RatingItem = ({ title, films }) => {
   const slisedfilms = films.slice(0, 10);
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 className={css.title}>{title}</h2>
       <div className={css.container}>
         <ul className={css.list}>
           {slisedfilms.map((film, index) => {
