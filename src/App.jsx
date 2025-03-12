@@ -3,13 +3,14 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
-import HomePage from './pages/HomePage/Home';
+import HomePage from './pages/HomePage/HomePage';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
 import TvPage from './pages/TvPage/TvPage';
 import DetailsPage from './pages/DetailsPage/DetailsPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 
 import './App.css';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           {/* <Route path="review" element={<MovieReviews />} /> */}
         </Route>
         <Route path="/search" element={<SearchPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </>

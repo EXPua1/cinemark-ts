@@ -1,0 +1,115 @@
+.notFoundContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #14141f 0%,
+    #252540 100%
+  ); 
+  color: #fff; 
+  position: relative;
+  overflow: hidden;
+}
+
+.notFoundContent {
+  text-align: center;
+  z-index: 2;
+  padding: 20px;
+}
+
+.notFoundTitle {
+  font-size: 12rem;
+  font-weight: 900;
+  color: #e67e22; 
+  text-shadow: 0 0 15px rgba(230, 126, 34, 0.7),
+    0 0 30px rgba(230, 126, 34, 0.3);
+  margin: 0;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.notFoundMessage {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 20px 0;
+  color: #f0f0f0; 
+}
+
+.notFoundSubtext {
+  font-size: 1.3rem;
+  color: #b0b0b0; 
+  margin-bottom: 40px;
+}
+
+.notFoundButton {
+  display: inline-block;
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  background: #e67e22; 
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(230, 126, 34, 0.5);
+}
+
+.notFoundButton:hover {
+  background: #f39c12; 
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(243, 156, 18, 0.7);
+}
+
+
+.filmstripOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    linear-gradient(135deg, #14141f 0%, #3a3a3a 100%)
+  );
+  pointer-events: none;
+  z-index: 1;
+  animation: moveFilmstrip 10s linear infinite;
+}
+
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 15px rgba(230, 126, 34, 0.7),
+      0 0 30px rgba(230, 126, 34, 0.3);
+  }
+  to {
+    text-shadow: 0 0 25px rgba(230, 126, 34, 0.9),
+      0 0 40px rgba(230, 126, 34, 0.5);
+  }
+}
+
+@keyframes moveFilmstrip {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-20px);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .notFoundTitle {
+    font-size: 6rem;
+  }
+  .notFoundMessage {
+    font-size: 1.5rem;
+  }
+  .notFoundSubtext {
+    font-size: 1rem;
+  }
+  .notFoundButton {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+}
