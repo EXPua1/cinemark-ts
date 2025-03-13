@@ -1,4 +1,4 @@
-import { getReleaseDates, getContentRatings } from '../utils/api';
+import { getReleaseDates, getContentRatings } from './api';
 
 const ageRatingsMap = {
   G: '0+',
