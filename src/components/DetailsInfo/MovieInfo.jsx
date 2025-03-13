@@ -49,7 +49,7 @@ const MovieInfo = ({ data, ageCertification, credits }) => {
         <li>
           <span>Director:</span>
           {director?.name ? (
-            <Link to={`/person/${director.id}`}>{director.name}</Link>
+            <Link to={`/person/${director.id}`} state={{ from: location.pathname }}>{director.name}</Link>
           ) : (
             <p>N/A</p>
           )}
@@ -60,7 +60,7 @@ const MovieInfo = ({ data, ageCertification, credits }) => {
             <span className={css.actorsLinks}>
               {actors.map((a, index) => (
                 <span key={a.id}>
-                  <Link to={`/person/${a.id}`}>{a.name}</Link>
+                  <Link to={`/person/${a.id}`} state={{ from: location.pathname }}>{a.name}</Link>
                   {index < actors.length - 1 && ', '}
                 </span>
               ))}

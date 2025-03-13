@@ -8,13 +8,13 @@ const GoBackBtn = ({ defaultPath = "/" }) => {
   const backLink = location.state?.from;
 
   const handleGoBack = (e) => {
-    e.preventDefault(); 
-    if (backLink) {
-     
-      navigate(backLink);
-    } else if (location.key !== "default") { 
+    e.preventDefault();
+    if (window.history.length > 2 && location.key !== "default") {   
       navigate(-1);
+    } else if (backLink && backLink !== location.pathname) {   
+      navigate(backLink);
     } else {
+     
       navigate(defaultPath);
     }
   };
