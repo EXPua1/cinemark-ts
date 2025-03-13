@@ -30,6 +30,7 @@ export const getDetails = async (type, id) => {
   return data;
 };
 
+// Отримання вікової категорії
 export const getReleaseDates = async id => {
   const { data } = await axios.get(`/movie/${id}/release_dates`);
   return data;
@@ -37,5 +38,11 @@ export const getReleaseDates = async id => {
 
 export const getContentRatings = async id => {
   const { data } = await axios.get(`/tv/${id}/content_ratings`);
+  return data;
+};
+
+// Отримати список акторів за ID
+export const getCredits = async (type, id) => {
+  const { data } = await axios.get(`/${type}/${id}/credits`);
   return data;
 };

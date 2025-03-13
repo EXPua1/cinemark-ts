@@ -102,7 +102,7 @@ const getTvAgeCertification = async id => {
   }
 };
 
-export const fetchAgeCertification = async (type, id, setAgeCertification) => {
+export const fetchAgeCertification = async (type, id, setAge) => {
   try {
     let rating = '';
 
@@ -114,9 +114,9 @@ export const fetchAgeCertification = async (type, id, setAgeCertification) => {
       // console.log(rating);
     }
 
-    setAgeCertification(formatAgeRating(rating) || 'No age info');
+    setAge(formatAgeRating(rating) || 'No age info');
   } catch (error) {
     console.error('Error fetching age certification:', error);
-    setAgeCertification('No age info');
+    setAge('No age info');
   }
 };

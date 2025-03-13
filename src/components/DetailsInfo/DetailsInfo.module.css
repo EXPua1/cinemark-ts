@@ -66,6 +66,16 @@
   color: #a6a4a4;
 }
 
+.infoCont a {
+  color: var(--accent-light-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.infoCont a:hover {
+  color: var(--accent-color);
+}
+
 .actorsList {
   margin-top: auto;
 }
