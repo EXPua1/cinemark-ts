@@ -8,15 +8,13 @@ const GoBackBtn = ({ defaultPath = "/" }) => {
   const backLink = location.state?.from;
 
   const handleGoBack = (e) => {
-    e.preventDefault(); // Предотвращаем стандартное поведение Link
+    e.preventDefault(); 
     if (backLink) {
-      // Если есть предыдущая страница в state
+     
       navigate(backLink);
-    } else if (location.key !== "default") {
-      // Если есть история навигации
+    } else if (location.key !== "default") { 
       navigate(-1);
     } else {
-      // Если нет истории - идем на defaultPath
       navigate(defaultPath);
     }
   };
