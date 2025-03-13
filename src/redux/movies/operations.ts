@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
+interface FetchTrailerPayload {
+  id: string | number;
+  type: 'movie' | 'tv';
+}
+
 export const getTrendingMovies = async (timeWindow = 'day') => {
   const { data } = await axios.get(`/trending/movie/${timeWindow}`);
   return data.results;
@@ -46,7 +52,7 @@ export const getTopMoviesByYear = async () => {
   return data.results;
 };
 
-export const searchVideo = async (id: number) => {
+export const searchVideo = async (id: number ) => {
   const { data } = await axios.get(`/movie/${id}/videos`);
   return data.results;
 };
@@ -59,13 +65,16 @@ export const searchTvVideo = async (id : number, season = 1) => {
 
 export const fetchTrailer = createAsyncThunk(
   'media/fetchTrailer',
-  async ({ id , type }, { rejectWithValue }) => {
+  async ({ id , type }: FetchTrailerPayload, { rejectWithValue }) => {
     try {
       const fetchFunction = type === 'movie' ? searchVideo : searchTvVideo;
-      const data = await fetchFunction(id);
+      const data = await fetchFunction(id as number);
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message); 
+      }
+      return rejectWithValue('An unknown error occurred'); 
     }
   }
 );
