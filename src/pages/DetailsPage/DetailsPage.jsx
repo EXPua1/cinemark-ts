@@ -60,7 +60,7 @@ const DetailsPage = () => {
         <Background backgroundPath={data?.backdrop_path} />
 
         <Container className={css.containerDetails}>
-          <GoBackBtn state={{ from: prevLocation }} />
+          <GoBackBtn defaultPath={prevLocation} />
 
           <Details details={data} credits={credits} age={age} type={type} />
         </Container>

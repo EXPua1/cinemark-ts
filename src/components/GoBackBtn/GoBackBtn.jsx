@@ -1,18 +1,34 @@
-import { useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import css from "./GoBackBtn.module.css";
 
-import { FaArrowLeft } from 'react-icons/fa';
-
-import css from './GoBackBtn.module.css';
-
-const GoBackBtn = () => {
+const GoBackBtn = ({ defaultPath = "/" }) => {
   const location = useLocation();
-  const backLink = useRef(location.state?.from ?? '/');
+  const navigate = useNavigate();
+  const backLink = location.state?.from;
+
+  const handleGoBack = (e) => {
+    e.preventDefault(); // Предотвращаем стандартное поведение Link
+    if (backLink) {
+      // Если есть предыдущая страница в state
+      navigate(backLink);
+    } else if (location.key !== "default") {
+      // Если есть история навигации
+      navigate(-1);
+    } else {
+      // Если нет истории - идем на defaultPath
+      navigate(defaultPath);
+    }
+  };
 
   return (
-    <Link to={backLink.current} className={css.backBtn}>
+    <Link
+      onClick={handleGoBack}
+      className={css.backBtn}
+      title="Go back"
+    >
       <FaArrowLeft />
-      Go back
+      <span>Go back</span>
     </Link>
   );
 };

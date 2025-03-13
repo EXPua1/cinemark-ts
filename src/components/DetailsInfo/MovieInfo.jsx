@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { formatDate } from '../../utils/func';
 
 import css from './DetailsInfo.module.css';
@@ -6,6 +6,7 @@ import css from './DetailsInfo.module.css';
 const MovieInfo = ({ data, ageCertification, credits }) => {
   const director = credits.crew.find(c => c.job === 'Director');
   const actors = credits.cast.slice(0, 9);
+  const location = useLocation();
 
   return (
     <div className={css.infoCont}>
@@ -50,17 +51,23 @@ const MovieInfo = ({ data, ageCertification, credits }) => {
           {director?.name ? (
             <Link to={`/person/${director.id}`}>{director.name}</Link>
           ) : (
-            <p>&#39N/A&#39</p>
+            <p>N/A</p>
           )}
         </li>
         <li>
           <span>Actors:</span>
-          {actors.map((a, index) => (
-            <Link key={a.id} to={`/person/${a.id}`}>
-              {a.name}
-              {index < actors.length - 1 && ', '}
-            </Link>
-          ))}
+          {actors.length > 0 ? (
+            <span className={css.actorsLinks}>
+              {actors.map((a, index) => (
+                <span key={a.id}>
+                  <Link to={`/person/${a.id}`}>{a.name}</Link>
+                  {index < actors.length - 1 && ', '}
+                </span>
+              ))}
+            </span>
+          ) : (
+            <p>N/A</p>
+          )}
         </li>
       </ul>
     </div>
