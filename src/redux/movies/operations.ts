@@ -46,12 +46,12 @@ export const getTopMoviesByYear = async () => {
   return data.results;
 };
 
-export const searchVideo = async id => {
+export const searchVideo = async (id: number) => {
   const { data } = await axios.get(`/movie/${id}/videos`);
   return data.results;
 };
 
-export const searchTvVideo = async (id, season = 1) => {
+export const searchTvVideo = async (id : number, season = 1) => {
   const { data } = await axios.get(`/tv/${id}/season/${season}/videos`);
   return data.results;
 };
@@ -59,7 +59,7 @@ export const searchTvVideo = async (id, season = 1) => {
 
 export const fetchTrailer = createAsyncThunk(
   'media/fetchTrailer',
-  async ({ id, type }, { rejectWithValue }) => {
+  async ({ id , type }, { rejectWithValue }) => {
     try {
       const fetchFunction = type === 'movie' ? searchVideo : searchTvVideo;
       const data = await fetchFunction(id);

@@ -36,9 +36,10 @@ interface Movie {
 }
 
 interface Trailer {
-  id: string;
+  id: string;           
   key: string;
-  [key: string]: any; // Для дополнительных полей
+  site: string;
+  [key: string]: any;   
 }
 
 interface MoviesState {
@@ -59,6 +60,7 @@ interface RootState {
   user: AuthState;
   genre: GenresState;
   movies: MoviesState;
+  
 }
 
 // Конфигурация persist с типами
