@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router';
 import { GoInfo } from "react-icons/go";
 import css from './RatingItem.module.css';
+const defImg = 'https://via.placeholder.com/200';
 
 const RatingItem = ({ title, films }) => {
   const location = useLocation();
