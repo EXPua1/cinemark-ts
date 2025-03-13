@@ -1,1 +1,0 @@
-export const getSelectedGenre = state => state.genre.selectedGenre || null;

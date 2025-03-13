@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchMoviesDay,
   fetchMoviesWeek,
@@ -8,23 +8,55 @@ import {
   fetchTrailer,
 } from './operations';
 
+// Типы
+export interface Movie {
+  id: number;
+  title: string;
+  vote_average: number;
+  [key: string]: any;
+}
 
-const sortByVoteAverage = (a, b) => b.vote_average - a.vote_average;
+export interface Trailer {
+  id: string;
+  key: string;
+  site: string; // Добавлено
+  type?: string; // Добавлено
+  [key: string]: any;
+}
 
+interface MoviesState {
+  films: Movie[];
+  weeklyFilms: Movie[];
+  weeklyShows: Movie[];
+  trailers: Trailer[];
+  tvTrailers: Trailer[];
+  monthlyFilms: Movie[];
+  yearlyFilms: Movie[];
+  loading: boolean;
+  loadingVideo: boolean;
+  error: string | null;
+}
+
+const sortByVoteAverage = (a: Movie, b: Movie): number =>
+  b.vote_average - a.vote_average;
+// Начальное состояние
+const initialState: MoviesState = {
+  films: [],
+  weeklyFilms: [],
+  weeklyShows: [],
+  trailers: [],
+  tvTrailers: [],
+  monthlyFilms: [],
+  yearlyFilms: [],
+  loading: false,
+  loadingVideo: false,
+  error: null,
+};
+
+// Создание слайса
 const moviesSlice = createSlice({
   name: 'movies',
-  initialState: {
-    films: [],
-    weeklyFilms: [],
-    weeklyShows: [],
-    trailers: [],
-    tvTrailers: [],
-    monthlyFilms: [],
-    yearlyFilms: [],
-    loading: false,
-    loadingVideo: false,
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: builder => {
     builder
@@ -34,11 +66,11 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesDay.fulfilled, (state, action) => {
         state.loading = false;
-        state.films = action.payload || []; 
+        state.films = action.payload || [];
       })
       .addCase(fetchMoviesDay.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error?.message || 'Unknown error'; // Обработка ошибок
+        state.error = action.error.message || 'Unknown error';
       })
 
       // Универсальный запрос трейлеров
@@ -56,8 +88,7 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchTrailer.rejected, (state, action) => {
         state.loadingVideo = false;
-        state.error =
-          action.payload || action.error?.message || 'Unknown error';
+        state.error = action.error.message || 'Unknown error';
       })
 
       // Тренды за неделю (фильмы)
@@ -66,11 +97,11 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesWeek.fulfilled, (state, action) => {
         state.loading = false;
-        state.weeklyFilms = (action.payload || []).sort(sortByVoteAverage); // Используем функцию сортировки
+        state.weeklyFilms = (action.payload || []).sort(sortByVoteAverage);
       })
       .addCase(fetchMoviesWeek.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error?.message || 'Unknown error';
+        state.error = action.error.message || 'Unknown error';
       })
 
       // Тренды за неделю (сериалы)
@@ -79,11 +110,11 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchTvWeek.fulfilled, (state, action) => {
         state.loading = false;
-        state.weeklyShows = (action.payload || []).sort(sortByVoteAverage); // Используем функцию сортировки
+        state.weeklyShows = (action.payload || []).sort(sortByVoteAverage);
       })
       .addCase(fetchTvWeek.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error?.message || 'Unknown error';
+        state.error = action.error.message || 'Unknown error';
       })
 
       // Топ фильмы за месяц
@@ -96,7 +127,7 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesMonth.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error?.message || 'Unknown error';
+        state.error = action.error.message || 'Unknown error';
       })
 
       // Топ фильмы за год
@@ -109,7 +140,7 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesYear.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error?.message || 'Unknown error';
+        state.error = action.error.message || 'Unknown error';
       });
   },
 });

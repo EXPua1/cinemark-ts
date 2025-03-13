@@ -7,6 +7,11 @@ import { genres } from '../../constants/genres';
 
 import css from './GenresList.module.css';
 
+interface Genre { 
+  
+}
+
+
 const GenresList = () => {
   const dispatch = useDispatch();
   const selectedGenre = useSelector(getSelectedGenre);

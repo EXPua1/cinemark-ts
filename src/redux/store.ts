@@ -8,24 +8,72 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  PersistConfig,
 } from 'redux-persist';
-
 import storage from 'redux-persist/lib/storage';
-import { auth } from './auth/slice';
-import genresSlice from './genres/genresSlice';
-import moviesSlice from './movies/moviesSlice';
 
-const persistConfig = {
-  key: 'userToken', // ключ для збереження в сховищі
-  storage, // сховище (localStorage)
-  whitelist: ['token', 'user'], // вказуємо, що зберігати
+import genresReducer from './genres/genresSlice';
+import moviesReducer from './movies/moviesSlice';
+import { auth } from './auth/slice';
+
+
+interface AuthState {
+  token: string | null;
+  user: { id: number; name: string } | null; 
+}
+
+// Тип состояния для genres (из genresSlice)
+interface GenresState {
+  selectedGenre: number | null;
+}
+
+// Тип состояния для movies (из moviesSlice)
+interface Movie {
+  id: number;
+  title: string;
+  vote_average: number;
+  [key: string]: any; // Для дополнительных полей из API
+}
+
+interface Trailer {
+  id: string;
+  key: string;
+  [key: string]: any; // Для дополнительных полей
+}
+
+interface MoviesState {
+  films: Movie[];
+  weeklyFilms: Movie[];
+  weeklyShows: Movie[];
+  trailers: Trailer[];
+  tvTrailers: Trailer[];
+  monthlyFilms: Movie[];
+  yearlyFilms: Movie[];
+  loading: boolean;
+  loadingVideo: boolean;
+  error: string | null;
+}
+
+// Общий тип состояния
+interface RootState {
+  user: AuthState;
+  genre: GenresState;
+  movies: MoviesState;
+}
+
+// Конфигурация persist с типами
+const persistConfig: PersistConfig<AuthState> = {
+  key: 'userToken',
+  storage,
+  whitelist: ['token', 'user'],
 };
 
+// Создание стора
 export const store = configureStore({
   reducer: {
     user: persistReducer(persistConfig, auth),
-    genre: genresSlice,
-    movies: moviesSlice,
+    genre: genresReducer,
+    movies: moviesReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -35,4 +83,11 @@ export const store = configureStore({
     }),
 });
 
+
+export type { RootState };
+export type AppDispatch = typeof store.dispatch;
+
+
 export const persistor = persistStore(store);
+
+export default store;
