@@ -1,28 +1,32 @@
 import { useRef } from 'react';
 import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Swiper as SwiperType } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { genres } from '../../../constants/genres';
+import { FilmType } from '../../../types/Film';
 
 import css from './HeroList.module.css';
 import { Icon } from '@iconify/react';
 
 const defImg = 'https://via.placeholder.com/200';
 
-const HeroList = ({ films }) => {
-  // console.log(films);
-  const swiperRef = useRef(null);
+interface HeroListProps {
+  films: FilmType[];
+}
 
-  const getGenres = genreIds => {
+const HeroList: React.FC<HeroListProps> = ({ films }) => {
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const getGenres = (genreIds: number[]): string => {
     return genreIds
-      .map(id => genres.find(genre => genre.id === id)?.name) // Извлекаем имя жанра
-      .filter(Boolean) // Исключаем undefined
-      .join(', '); // Объединяем в строку
+      .map(id => genres.find(genre => genre.id === id)?.name)
+      .filter(Boolean)
+      .join(', ');
   };
 
   if (!Array.isArray(films) || films.length === 0) {
@@ -54,7 +58,6 @@ const HeroList = ({ films }) => {
         modules={[Navigation, Pagination]}
         spaceBetween={10}
         slidesPerView={5}
-
         pagination={{
           clickable: true,
           type: 'bullets'
@@ -62,11 +65,11 @@ const HeroList = ({ films }) => {
         loop={true}
         onSwiper={swiper => (swiperRef.current = swiper)}
         breakpoints={{
-          320: { slidesPerView: 1 }, // На маленьких экранах 1 слайд
-          480: { slidesPerView: 2 }, // Чуть больше экран - 2 слайда
-          768: { slidesPerView: 3 }, // Планшеты - 3 слайда
-          1024: { slidesPerView: 4 }, // Десктоп - 4 слайда
-          1200: { slidesPerView: 5, }, // От 1200px и выше - 5 слайдов
+          320: { slidesPerView: 1 },
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1200: { slidesPerView: 5 },
         }}
         style={{
           "--swiper-pagination-color": "#F49300",
@@ -75,44 +78,33 @@ const HeroList = ({ films }) => {
         {films.map(film => (
           <SwiperSlide className={css.swiperSlide} key={film.id}>
             <Link className={css.link} to={`/${film.media_type}/${film.id}`}>
-            <div className={css.slide}>
-              
-             
-              <img
-                src={
-                  film.poster_path
+              <div className={css.slide}>
+                <img
+                  src={film.poster_path
                     ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
                     : defImg
-                }
-                alt={film.title}
-                width={200}
-              />
-
-              <div className={css.info}>
-                <p>{film.title}</p>
-                <span className={css.film_genres}>
-                  {getGenres(film.genre_ids)}
-                </span>
-                <span>{film.rating}</span>
-                <div className={css.rating_Container}>
-                  <div className={css.rating_Count}>
-                    <span className={css.rating}>
-                      {film.vote_average.toFixed(1)}
-                    </span>
-                    <span>({film.vote_count})</span>
+                  }
+                  alt={film.title}
+                  width={200}
+                />
+                <div className={css.info}>
+                  <p>{film.title}</p>
+                  <span className={css.film_genres}>
+                    {getGenres(film.genre_ids)}
+                  </span>
+                  <span>{film.vote_average.toFixed(1)}</span>
+                  <div className={css.rating_Container}>
+                    <div className={css.rating_Count}>
+                      <span className={css.rating}>
+                        {film.vote_average.toFixed(1)}
+                      </span>
+                      <span>({film.vote_count})</span>
+                    </div>
+                    <Icon className={css.icon} icon="material-symbols:arrow-forward-ios-rounded" width="12" height="26" />
                   </div>
-                 
-                  <Icon className={css.icon} icon="material-symbols:arrow-forward-ios-rounded" width="12" height="26" />
-                 
-
-
-
                 </div>
-
-              </div>
               </div>
             </Link>
-
           </SwiperSlide>
         ))}
       </Swiper>
