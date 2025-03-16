@@ -74,7 +74,7 @@ const HeroList: React.FC<HeroListProps> = ({ films }) => {
         }}
         style={{
           "--swiper-pagination-color": "#F49300",
-        }}
+        } as React.CSSProperties}
       >
         {films.map(film => (
           <SwiperSlide className={css.swiperSlide} key={film.id}>
