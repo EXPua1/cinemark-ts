@@ -8,10 +8,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { genres } from '../../../constants/genres';
-import { FilmType } from '../../../types/Film';
+
 
 import css from './HeroList.module.css';
 import { Icon } from '@iconify/react';
+import FilmType from '../../../types/Film';
 
 const defImg = 'https://via.placeholder.com/200';
 
