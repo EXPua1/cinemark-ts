@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import GenresList from '../../components/GenresList/GenresList';
-import Hero from '../../components/Hero/Hero';
+
 import Section from '../../components/Section/Section';
 import Container from '../../components/Сontainer/Container';
 import RatingItem from '../../components/Rating/RatingItem/RatingItem';
@@ -16,9 +16,10 @@ import {
   selectYearlyMovies,
 } from '../../redux/movies/selectors';
 import { fetchMoviesDay, fetchMoviesMonth, fetchMoviesWeek, fetchMoviesYear, fetchTvWeek } from '../../redux/movies/operations';
+import Hero from '../../components/Hero/Hero';
 
 const HomePage = () => {
-  const weeklyFilm = useSelector(selectWeeklyMovies);
+  const weeklyFilm  = useSelector(selectWeeklyMovies);
   const monthFilm = useSelector(selectMonthlyMovies);
   const yearFilm = useSelector(selectYearlyMovies);
   const { films } = useSelector(state => state.movies);
